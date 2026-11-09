@@ -1,0 +1,60 @@
+const colors = {
+  light: {
+    text: '#21352C',
+    tint: '#1B4332',
+    background: '#F7F5EF',
+    foreground: '#21352C',
+    card: '#FFFDF8',
+    cardForeground: '#21352C',
+    primary: '#1B4332',
+    primaryForeground: '#FFFDF8',
+    secondary: '#E9EEE6',
+    secondaryForeground: '#304C3C',
+    muted: '#EFEEE7',
+    mutedForeground: '#626B63',
+    /** Warm gold accent (NOT pale cream) – high contrast on light backgrounds */
+    accent: '#D4A574',
+    accentForeground: '#FFFFFF',
+    accentLight: '#FDF3E7',
+    destructive: '#A25542',
+    destructiveForeground: '#FFFDF8',
+    border: '#E4E3D9',
+    input: '#E5E4DA',
+    deep: '#1B4332',
+    leaf: '#E1EBDD',
+    cream: '#FFF8EB',
+    pale: '#F5EADD',
+    orange: '#C97750',
+    softCoral: '#F5E3DD',
+    /** Semantic tokens */
+    success: '#2E7D32',
+    successLight: '#E8F5E9',
+    warning: '#D4A017',
+    warningLight: '#FFF8E1',
+    warningForeground: '#7A4520',
+    warningBorder: '#C97750',
+    info: '#1565C0',
+    infoLight: '#E3F2FD',
+    error: '#C62828',
+    errorLight: '#FFEBEE',
+    /** Urgency & Performance Tokens (Speed, Relief & Adrenaline) */
+    urgentRed: '#DC2626',
+    urgentRedLight: '#FEE2E2',
+    urgentRedBorder: '#EF4444',
+    liveEmerald: '#059669',
+    liveEmeraldLight: '#D1FAE5',
+    amberUrgent: '#D97706',
+    amberUrgentLight: '#FEF3C7',
+    badgeDark: '#111827',
+    badgeDarkText: '#F9FAFB',
+    /** Timer panel — intentional dark forest surface */
+    timerBg: '#0E2820',
+    timerBorder: '#1D4535',
+    timerSubtle: 'rgba(255,255,255,0.55)',
+  },
+
+  radius: 18,
+};
+
+export default colors;
+

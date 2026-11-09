@@ -1,0 +1,24 @@
+kind = "mobile"
+previewPath = "/juniper-tutoring/"
+title = "Juniper — tutoring, made personal"
+description = "A tutoring marketplace where learners find reviewed tutors, compare session offers, agree on tutoring details, and track their progress. Learners and tutors arrange payment directly."
+version = "1.0.0"
+id = "artifacts/juniper-tutoring"
+router = "expo-domain"
+
+[[services]]
+name = "expo"
+ensurePreviewReachable = "/status"
+paths = [ "/juniper-tutoring/" ]
+localPort = 19194
+
+[services.development]
+run = "pnpm --filter @workspace/juniper-tutoring run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/juniper-tutoring", "run", "build" ]
+run = [ "pnpm", "--filter", "@workspace/juniper-tutoring", "run", "serve" ]
+
+[services.env]
+PORT = "19194"
+BASE_PATH = "/juniper-tutoring/"

@@ -1,0 +1,28 @@
+INSERT INTO subjects (name, slug, category) VALUES
+  ('Business', 'business', 'Business'),
+  ('Accounting', 'accounting', 'Business'),
+  ('Finance', 'finance', 'Business'),
+  ('Marketing', 'marketing', 'Business'),
+  ('Management', 'management', 'Business'),
+  ('Engineering', 'engineering', 'STEM'),
+  ('Civil engineering', 'civil-engineering', 'STEM'),
+  ('Electrical engineering', 'electrical-engineering', 'STEM'),
+  ('Mechanical engineering', 'mechanical-engineering', 'STEM'),
+  ('Data science', 'data-science', 'STEM'),
+  ('Nursing', 'nursing', 'Health sciences'),
+  ('Medicine', 'medicine', 'Health sciences'),
+  ('Pharmacy', 'pharmacy', 'Health sciences'),
+  ('Law', 'law', 'Social sciences'),
+  ('Psychology', 'psychology', 'Social sciences'),
+  ('Sociology', 'sociology', 'Social sciences'),
+  ('Political science', 'political-science', 'Social sciences'),
+  ('Education', 'education', 'Humanities'),
+  ('Arabic', 'arabic', 'Languages'),
+  ('English', 'english', 'Languages'),
+  ('French', 'french', 'Languages'),
+  ('Architecture', 'architecture', 'Arts and design'),
+  ('Art & Design', 'art-design', 'Arts and design'),
+  ('Writing & research', 'writing-research', 'Humanities'),
+  ('Other subject', 'other-subject', 'Other')
+ON CONFLICT (slug) DO UPDATE
+SET name = EXCLUDED.name, category = EXCLUDED.category, active = true;

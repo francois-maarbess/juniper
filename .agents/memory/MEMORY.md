@@ -1,0 +1,1 @@
+- [Expo preview startup](expo-preview-startup.md) — Wait for the first Metro web bundle before taking the initial app preview screenshot.
