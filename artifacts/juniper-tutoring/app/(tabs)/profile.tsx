@@ -302,7 +302,7 @@ const styles = StyleSheet.create({
   identityCard: { alignItems: 'center', borderRadius: 24, borderWidth: 1, flexDirection: 'row', gap: 14, padding: 18, shadowColor: '#183B31', shadowOffset: { width: 0, height: 5 }, shadowOpacity: 0.1, shadowRadius: 16, elevation: 4 },
   identityAvatar: { alignItems: 'center', borderRadius: 16, height: 48, justifyContent: 'center', width: 48 },
   identityCopy: { flex: 1 },
-  identityName: { fontFamily: 'Georgia', fontSize: 21, letterSpacing: -0.35 },
+  identityName: { fontFamily: 'serif', fontSize: 21, letterSpacing: -0.35 },
   identityCaption: { fontFamily: 'Inter_500Medium', fontSize: 11, marginTop: 5 },
   menuRow: { alignItems: 'center', borderBottomWidth: 1, flexDirection: 'row', gap: 14, minHeight: 56 },
   menuLabel: { flex: 1, fontFamily: 'Inter_700Bold', fontSize: 13 },

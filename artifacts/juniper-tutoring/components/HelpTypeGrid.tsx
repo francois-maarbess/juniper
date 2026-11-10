@@ -22,7 +22,7 @@ export const HELP_TYPES: Array<{
   { id: 'quick_question', title: 'One topic', hint: 'Get unstuck', icon: 'help-circle-outline', serviceType: 'live_session' },
 ];
 
-const surfaces = ['#E4EBDD', '#F5EADD', '#F3E6E2', '#E6EFED', '#F4EBDD', '#E8E9DF'];
+const surfaces = ['#E5EBDF', '#F2E8D9', '#F2E3DC', '#E4ECE9', '#F1E8D9', '#E8E9DF'];
 
 export function HelpTypeGrid({ onSelect }: { onSelect: (item: (typeof HELP_TYPES)[number]) => void }) {
   const colors = useColors();
@@ -37,7 +37,7 @@ export function HelpTypeGrid({ onSelect }: { onSelect: (item: (typeof HELP_TYPES
             onPress={() => onSelect(item)}
             style={({ pressed }) => [
               styles.tile,
-              { backgroundColor: surfaces[index], borderColor: colors.border, transform: [{ scale: pressed ? 0.985 : 1 }] },
+              { backgroundColor: surfaces[index], borderColor: colors.border, transform: [{ scale: pressed ? 0.975 : 1 }], opacity: pressed ? 0.92 : 1 },
             ]}
           >
             <View style={styles.ornament} />
@@ -56,11 +56,11 @@ export function HelpTypeGrid({ onSelect }: { onSelect: (item: (typeof HELP_TYPES
 }
 
 const styles = StyleSheet.create({
-  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, justifyContent: 'space-between' },
-  tile: { alignItems: 'center', borderRadius: 17, borderWidth: 1, flexBasis: '31%', flexGrow: 0, flexShrink: 0, minHeight: 92, overflow: 'hidden', paddingHorizontal: 7, paddingVertical: 8, position: 'relative', width: '31%' },
+  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 9, justifyContent: 'space-between' },
+  tile: { alignItems: 'center', borderRadius: 19, borderWidth: 1, flexBasis: '31%', flexGrow: 0, flexShrink: 0, minHeight: 104, overflow: 'hidden', paddingHorizontal: 8, paddingVertical: 10, position: 'relative', width: '31%' },
   ornament: { backgroundColor: 'rgba(255,255,255,0.26)', borderRadius: 99, height: 56, position: 'absolute', right: -24, top: -25, width: 56 },
-  icon: { alignItems: 'center', borderRadius: 11, height: 31, justifyContent: 'center', width: 31 },
-  copy: { alignItems: 'center', marginTop: 7 },
-  title: { fontFamily: 'Inter_700Bold', fontSize: 10.5, letterSpacing: -0.2, lineHeight: 13, textAlign: 'center' },
-  hint: { fontFamily: 'Inter_500Medium', fontSize: 8.5, lineHeight: 11, marginTop: 3, textAlign: 'center' },
+  icon: { alignItems: 'center', borderRadius: 12, height: 34, justifyContent: 'center', width: 34 },
+  copy: { alignItems: 'center', marginTop: 8 },
+  title: { fontFamily: 'Inter_700Bold', fontSize: 11, letterSpacing: -0.2, lineHeight: 14, textAlign: 'center' },
+  hint: { fontFamily: 'Inter_500Medium', fontSize: 9, lineHeight: 12, marginTop: 3, textAlign: 'center' },
 });

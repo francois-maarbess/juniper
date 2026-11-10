@@ -47,17 +47,17 @@ function PublicHome() {
     <Screen>
       <View style={styles.topLine}>
         <BrandMark />
-        <HapticPressable accessibilityRole="button" onPress={() => router.push('/(auth)/welcome')} style={({ pressed }) => [styles.profileButton, { backgroundColor: colors.leaf, width: 'auto', height: 40, minHeight: 40, paddingHorizontal: 12, opacity: pressed ? 0.72 : 1 }]}>
+        <HapticPressable accessibilityRole="button" onPress={() => router.push('/(auth)/welcome')} style={({ pressed }) => [styles.profileButton, { backgroundColor: colors.leaf, width: 'auto', height: 44, minHeight: 44, paddingHorizontal: 13, opacity: pressed ? 0.72 : 1 }]}>
           <Text style={{ color: colors.primary, fontFamily: 'Inter_700Bold', fontSize: 11 }}>Sign in / Register</Text>
         </HapticPressable>
       </View>
       <View style={[styles.publicHero, { backgroundColor: colors.primary }]}>
         <View style={styles.publicHeroOrbit} />
         <View style={styles.publicHeroOrbit2} />
-        <View style={styles.publicHeroHeading}>
-          <Text style={[styles.publicHeroEyebrow, { color: colors.accent }]}>JUNIPER TUTORING</Text>
+      <View style={styles.publicHeroHeading}>
+          <Text style={[styles.publicHeroEyebrow, { color: colors.accentLight }]}>A BETTER WAY TO LEARN</Text>
           <Text style={[styles.publicHeroTitle, { color: colors.primaryForeground }]}>Get unstuck.{'\n'}Get ahead.</Text>
-          <Text style={[styles.publicHeroSub, { color: 'rgba(255,253,248,0.85)' }]}>Elite tutors. Zero platform fees. Your next session is a tap away.</Text>
+          <Text style={[styles.publicHeroSub, { color: 'rgba(255,252,245,0.84)' }]}>Find a thoughtful tutor, feel supported, and make your next step count.</Text>
         </View>
         <View style={[styles.searchWrap, styles.publicSearch, { backgroundColor: colors.card, borderColor: colors.card }]}>
           <Ionicons name="search-outline" size={18} color={colors.mutedForeground} />
@@ -67,10 +67,11 @@ function PublicHome() {
             placeholder="Math, biology, French…"
             placeholderTextColor={colors.mutedForeground}
             style={[styles.searchInput, { color: colors.foreground }]}
+            accessibilityLabel="Search for a subject or tutor"
             returnKeyType="search"
             onSubmitEditing={submitSearch}
           />
-          <HapticPressable onPress={submitSearch} style={styles.searchButton}>
+          <HapticPressable accessibilityRole="button" accessibilityLabel="Search tutors" onPress={submitSearch} style={styles.searchButton}>
             <Ionicons name="arrow-forward" size={16} color={colors.primaryForeground} />
           </HapticPressable>
         </View>
@@ -442,7 +443,7 @@ function AccountHome() {
       </View>
       <View style={styles.accountIntro}>
         <Text style={[styles.tutorStudioBadge, { color: colors.accent }]}>WELCOME BACK, {user?.firstName?.toUpperCase()}</Text>
-        <Text style={[styles.headline, { color: colors.foreground, fontFamily: 'Inter_900Black', fontSize: 36, letterSpacing: -1.5, lineHeight: 40 }]}>What will you master today?</Text>
+        <Text style={[styles.headline, { color: colors.foreground, fontFamily: 'serif', fontSize: 36, letterSpacing: -1.1, lineHeight: 42 }]}>What will you master today?</Text>
       </View>
       {error ? <Text style={[styles.accountError, { color: colors.destructive }]}>{error}</Text> : null}
 
@@ -518,12 +519,12 @@ function AccountHome() {
 }
 
 const styles = StyleSheet.create({
-  topLine: { alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12 },
+  topLine: { alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 },
   eyebrow: { fontFamily: 'Inter_700Bold', fontSize: 10, letterSpacing: 1.3 },
   accountCountPill: { alignItems: 'center', borderRadius: 99, flexDirection: 'row', gap: 6, paddingHorizontal: 10, paddingVertical: 7 },
   accountCountText: { fontFamily: 'Inter_600SemiBold', fontSize: 9 },
-  accountIntro: { marginBottom: 18, marginTop: 14 },
-  accountHero: { borderRadius: 24, gap: 12, padding: 20, shadowColor: '#183B31', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.08, shadowRadius: 14, elevation: 3 },
+  accountIntro: { marginBottom: 22, marginTop: 17 },
+  accountHero: { borderRadius: 27, gap: 13, padding: 22, shadowColor: '#183B31', shadowOffset: { width: 0, height: 5 }, shadowOpacity: 0.09, shadowRadius: 16, elevation: 3 },
   accountHeroEyebrow: { fontFamily: 'Inter_700Bold', fontSize: 10, letterSpacing: 1.3, opacity: 0.8 },
   accountHeroTitle: { fontFamily: 'Inter_700Bold', fontSize: 26, letterSpacing: -0.7, lineHeight: 32, maxWidth: 340 },
   accountHeroBody: { fontFamily: 'Inter_400Regular', fontSize: 13, lineHeight: 19, maxWidth: 340, opacity: 0.88 },
@@ -539,24 +540,24 @@ const styles = StyleSheet.create({
   accountError: { fontFamily: 'Inter_600SemiBold', fontSize: 12, lineHeight: 17, marginVertical: 8 },
   profileButton: { alignItems: 'center', borderRadius: 15, height: 44, justifyContent: 'center', width: 44 },
   intro: { marginBottom: 20, marginTop: 18 },
-  headline: { fontFamily: 'Georgia', fontSize: 34, letterSpacing: -1.1, lineHeight: 40, marginTop: 12, maxWidth: 330 },
+  headline: { fontFamily: 'serif', fontSize: 36, letterSpacing: -1.1, lineHeight: 42, marginTop: 12, maxWidth: 340 },
   subhead: { fontFamily: 'Inter_500Medium', fontSize: 14, lineHeight: 21, marginTop: 8, maxWidth: 320 },
-  publicHero: { borderRadius: 28, gap: 16, justifyContent: 'center', marginTop: 4, overflow: 'hidden', paddingHorizontal: 24, paddingVertical: 28, position: 'relative' },
+  publicHero: { borderRadius: 30, gap: 18, justifyContent: 'center', marginTop: 4, overflow: 'hidden', paddingHorizontal: 25, paddingVertical: 32, position: 'relative', shadowColor: '#19392E', shadowOffset: { width: 0, height: 9 }, shadowOpacity: 0.13, shadowRadius: 20, elevation: 4 },
   publicHeroOrbit: { borderColor: 'rgba(255,248,235,0.14)', borderRadius: 160, borderWidth: 1, height: 280, position: 'absolute', right: -100, top: -140, width: 280 },
   publicHeroOrbit2: { backgroundColor: 'rgba(212,165,116,0.12)', borderRadius: 200, height: 320, position: 'absolute', left: -120, bottom: -160, width: 320 },
   publicHeroHeading: { gap: 8 },
-  publicHeroEyebrow: { fontFamily: 'Inter_700Bold', fontSize: 11, letterSpacing: 2, textTransform: 'uppercase' },
-  publicHeroTitle: { fontFamily: 'Inter_900Black', fontSize: 42, letterSpacing: -1.5, lineHeight: 46 },
-  publicHeroSub: { fontFamily: 'Inter_400Regular', fontSize: 15, lineHeight: 22, marginTop: 4 },
-  publicSearch: { marginBottom: 0, borderRadius: 16, minHeight: 52, paddingVertical: 6 },
-  publicHeroCtaRow: { flexDirection: 'row', gap: 10, marginTop: 4 },
-  publicHeroCta: { alignItems: 'center', borderRadius: 14, flexDirection: 'row', gap: 8, paddingHorizontal: 20, paddingVertical: 14 },
+  publicHeroEyebrow: { fontFamily: 'Inter_700Bold', fontSize: 10, letterSpacing: 1.8, textTransform: 'uppercase' },
+  publicHeroTitle: { fontFamily: 'serif', fontSize: 44, letterSpacing: -1.5, lineHeight: 48 },
+  publicHeroSub: { fontFamily: 'Inter_400Regular', fontSize: 14, lineHeight: 21, marginTop: 4, maxWidth: 340 },
+  publicSearch: { marginBottom: 0, borderRadius: 17, minHeight: 58, paddingVertical: 7 },
+  publicHeroCtaRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginTop: 3 },
+  publicHeroCta: { alignItems: 'center', borderRadius: 15, flexDirection: 'row', gap: 8, minHeight: 48, paddingHorizontal: 19, paddingVertical: 12 },
   publicHeroCtaText: { fontFamily: 'Inter_700Bold', fontSize: 14 },
-  publicHeroCtaSecondary: { alignItems: 'center', borderRadius: 14, borderWidth: 1.5, paddingHorizontal: 20, paddingVertical: 14 },
+  publicHeroCtaSecondary: { alignItems: 'center', borderRadius: 15, borderWidth: 1.5, justifyContent: 'center', minHeight: 48, paddingHorizontal: 19, paddingVertical: 12 },
   publicHeroCtaSecondaryText: { fontFamily: 'Inter_700Bold', fontSize: 14 },
   activityNudge: { alignItems: 'center', borderRadius: 20, flexDirection: 'row', marginTop: 18, padding: 17 },
   activityNudgeLabel: { fontFamily: 'Inter_700Bold', fontSize: 9, letterSpacing: 1.1 },
-  activityNudgeTitle: { fontFamily: 'Georgia', fontSize: 20, marginTop: 4 },
+  activityNudgeTitle: { fontFamily: 'serif', fontSize: 20, marginTop: 4 },
   activityNudgeMeta: { fontFamily: 'Inter_500Medium', fontSize: 11, marginTop: 4 },
   hero: { flexDirection: 'row', minHeight: 256, padding: 20, position: 'relative', borderRadius: 24 },
   heroCopy: { flex: 1, maxWidth: '62%', zIndex: 2 },
@@ -630,7 +631,7 @@ const styles = StyleSheet.create({
   requestPromptInput: { alignItems: 'center', borderRadius: 14, borderWidth: 1, flexDirection: 'row', gap: 8, paddingHorizontal: 10, paddingVertical: 5 },
   suggestedTutorCard: { borderRadius: 18, borderWidth: 1, padding: 12, width: 268 },
   searchInput: { flex: 1, minWidth: 0, fontFamily: 'Inter_400Regular', fontSize: 14 },
-  searchButton: { alignItems: 'center', backgroundColor: '#1B4332', borderRadius: 12, height: 32, justifyContent: 'center', width: 32 },
+  searchButton: { alignItems: 'center', backgroundColor: '#244A3A', borderRadius: 14, height: 44, justifyContent: 'center', width: 44 },
   categoryRow: { gap: 10, paddingBottom: 6, paddingRight: 4 },
   categoryCard: { alignItems: 'center', borderRadius: 20, borderWidth: 1, gap: 10, paddingHorizontal: 16, paddingVertical: 16, width: 116, shadowColor: '#1B4332', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.06, shadowRadius: 12, elevation: 3 },
   categoryIcon: { alignItems: 'center', borderRadius: 16, height: 48, justifyContent: 'center', width: 48 },

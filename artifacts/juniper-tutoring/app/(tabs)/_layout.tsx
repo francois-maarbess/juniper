@@ -72,17 +72,17 @@ function ClassicTabLayout() {
       screenOptions={{
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.mutedForeground,
-        tabBarLabelStyle: { fontFamily: 'Inter_700Bold', fontSize: 11, letterSpacing: -0.1 },
+        tabBarLabelStyle: { fontFamily: 'Inter_700Bold', fontSize: 10, letterSpacing: 0.05, marginTop: 3 },
         headerShown: false,
         tabBarStyle: {
           position: 'absolute',
-          backgroundColor: isIOS ? 'transparent' : colors.background,
+          backgroundColor: isIOS ? 'transparent' : colors.card,
           borderTopWidth: isWeb ? 1 : 0,
           borderTopColor: colors.border,
           elevation: 0,
-          paddingTop: 8,
+          paddingTop: 9,
           paddingBottom: isWeb ? 8 : Math.max(insets.bottom, 8),
-          height: isWeb ? 72 : undefined,
+          height: isWeb ? 76 : undefined,
         },
         tabBarBackground: () =>
           isIOS ? (
@@ -95,7 +95,7 @@ function ClassicTabLayout() {
             <View
               style={[
                 StyleSheet.absoluteFill,
-                { backgroundColor: colors.background },
+                { backgroundColor: colors.card },
               ]}
             />
           ) : null,

@@ -91,7 +91,7 @@ export default function TutorProfileScreen() {
         />
       ) : null}
       {tutor ? <>
-        <View style={styles.profileHero}>
+        <View style={[styles.profileHero, { backgroundColor: colors.leaf }]}>
           {isSample && sample ? (
             <Image source={sample.photo} style={[styles.heroImage, { backgroundColor: colors.leaf }]} />
           ) : (
@@ -242,19 +242,19 @@ export default function TutorProfileScreen() {
 }
 
 const styles = StyleSheet.create({
-  profileHero: { alignItems: 'center', flexDirection: 'row', gap: 16, marginTop: 20 },
-  heroImage: { borderRadius: 24, height: 136, width: 110 },
-  realHeroImage: { alignItems: 'center', borderRadius: 24, height: 136, justifyContent: 'center', width: 110 },
-  profileTitleWrap: { flex: 1, gap: 8 },
-  profileName: { fontFamily: 'Inter_700Bold', fontSize: 24, letterSpacing: -0.7, lineHeight: 30 },
+  profileHero: { alignItems: 'center', flexDirection: 'row', gap: 17, marginTop: 20, padding: 16, borderRadius: 25 },
+  heroImage: { borderRadius: 23, height: 144, width: 116 },
+  realHeroImage: { alignItems: 'center', borderRadius: 23, height: 144, justifyContent: 'center', width: 116 },
+  profileTitleWrap: { flex: 1, gap: 9 },
+  profileName: { fontFamily: 'serif', fontSize: 27, letterSpacing: -0.8, lineHeight: 32 },
   profileSubject: { fontFamily: 'Inter_600SemiBold', fontSize: 13, lineHeight: 19 },
   profileRate: { fontFamily: 'Inter_700Bold', fontSize: 20, letterSpacing: -0.4, marginTop: 2 },
   profileRateLabel: { fontFamily: 'Inter_500Medium', fontSize: 11 },
-  trustCard: { alignItems: 'center', borderRadius: 16, flexDirection: 'row', gap: 10, marginTop: 18, padding: 14 },
+  trustCard: { alignItems: 'center', borderRadius: 18, flexDirection: 'row', gap: 10, marginTop: 18, padding: 15 },
   trustText: { flex: 1, fontFamily: 'Inter_500Medium', fontSize: 12, lineHeight: 18 },
-  aboutText: { fontFamily: 'Inter_400Regular', fontSize: 14, lineHeight: 22 },
+  aboutText: { fontFamily: 'Inter_400Regular', fontSize: 14, lineHeight: 23 },
   tagRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 4 },
-  approachCard: { alignItems: 'center', borderRadius: 18, borderWidth: 1, flexDirection: 'row', gap: 11, marginTop: 14, padding: 15 },
+  approachCard: { alignItems: 'center', borderRadius: 19, borderWidth: 1, flexDirection: 'row', gap: 11, marginTop: 14, padding: 16 },
   approachText: { flex: 1, fontFamily: 'Inter_500Medium', fontSize: 12, lineHeight: 18 },
   paymentNotice: { alignItems: 'flex-start', borderRadius: 14, flexDirection: 'row', gap: 9, marginTop: 16, padding: 12 },
   paymentNoticeText: { flex: 1, fontFamily: 'Inter_400Regular', fontSize: 11, lineHeight: 16 },

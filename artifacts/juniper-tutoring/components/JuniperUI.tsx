@@ -300,6 +300,7 @@ export function ActionButton({
       <Pressable
         testID={testID}
         accessibilityRole="button"
+        accessibilityState={{ disabled: disabled || loading, busy: loading }}
         disabled={disabled || loading}
         onPressIn={() => {
           scale.value = withSpring(0.975);
@@ -576,16 +577,16 @@ export const ui = StyleSheet.create({
   screen: { flex: 1 },
   fill: { flex: 1 },
   page: { paddingHorizontal: 22 },
-  pressed: { opacity: 0.76 },
-  brand: { alignItems: 'center', flexDirection: 'row', gap: 9 },
+  pressed: { opacity: 0.76, transform: [{ scale: 0.985 }] },
+  brand: { alignItems: 'center', flexDirection: 'row', gap: 10 },
   brandIcon: {
-    width: 31,
-    height: 31,
-    borderRadius: 11,
+    width: 34,
+    height: 34,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  brandName: { fontFamily: 'Inter_700Bold', fontSize: 20, letterSpacing: -0.8 },
+  brandName: { fontFamily: 'Inter_700Bold', fontSize: 21, letterSpacing: -0.9 },
   brandNameCompact: { fontSize: 17 },
   previewLabel: {
     borderRadius: 99,
@@ -606,7 +607,7 @@ export const ui = StyleSheet.create({
     paddingVertical: 10,
   },
   previewNoticeText: { flex: 1, fontFamily: 'Inter_500Medium', fontSize: 11, lineHeight: 16 },
-  pageHeader: { alignItems: 'center', flexDirection: 'row', gap: 14, marginBottom: 25, paddingBottom: 15, borderBottomWidth: 1 },
+  pageHeader: { alignItems: 'center', flexDirection: 'row', gap: 14, marginBottom: 23, paddingBottom: 17, borderBottomWidth: 1 },
   backButton: {
     alignItems: 'center',
     borderRadius: 16,
@@ -617,15 +618,15 @@ export const ui = StyleSheet.create({
   },
   pageHeaderText: { flex: 1 },
   eyebrow: { fontFamily: 'Inter_700Bold', fontSize: 10, letterSpacing: 1.3, textTransform: 'uppercase', marginBottom: 3 },
-  pageTitle: { fontFamily: 'Georgia', fontSize: 30, letterSpacing: -0.8, lineHeight: 36 },
+  pageTitle: { fontFamily: 'serif', fontSize: 31, letterSpacing: -0.9, lineHeight: 37 },
   sectionHeading: {
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 14,
-    marginTop: 30,
+    marginBottom: 15,
+    marginTop: 32,
   },
-  sectionTitle: { fontFamily: 'Georgia', fontSize: 21, letterSpacing: -0.35 },
+  sectionTitle: { fontFamily: 'serif', fontSize: 21, letterSpacing: -0.35 },
   sectionAction: { fontFamily: 'Inter_700Bold', fontSize: 13, letterSpacing: -0.1 },
   pill: {
     alignItems: 'center',
@@ -639,12 +640,12 @@ export const ui = StyleSheet.create({
   pillText: { fontFamily: 'Inter_700Bold', fontSize: 12 },
   actionButton: {
     alignItems: 'center',
-    borderRadius: 14,
+    borderRadius: 16,
     borderWidth: 1,
     flexDirection: 'row',
     gap: 10,
     justifyContent: 'center',
-    minHeight: 52,
+    minHeight: 54,
     paddingHorizontal: 20,
     shadowColor: '#183B31',
     shadowOffset: { width: 0, height: 3 },
@@ -656,9 +657,10 @@ export const ui = StyleSheet.create({
   actionButtonText: { fontFamily: 'Inter_700Bold', fontSize: 14, letterSpacing: -0.2 },
   iconButton: {
     alignItems: 'center',
-    height: 38,
+    borderRadius: 99,
+    height: 44,
     justifyContent: 'center',
-    width: 38,
+    width: 44,
   },
   portraitFrame: { backgroundColor: 'transparent', overflow: 'hidden' },
   portraitSmall: { borderRadius: 16, height: 84, width: 74 },
@@ -666,11 +668,11 @@ export const ui = StyleSheet.create({
   portraitLarge: { borderRadius: 26, height: 252, width: 200 },
   portraitImage: { height: '100%', width: '100%' },
   tutorCard: {
-    borderRadius: 22,
+    borderRadius: 24,
     borderWidth: 1,
     marginBottom: 14,
     overflow: 'hidden',
-    padding: 12,
+    padding: 13,
     shadowColor: '#183B31',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.05,
@@ -708,7 +710,7 @@ export const ui = StyleSheet.create({
   perHour: { fontFamily: 'Inter_600SemiBold', fontSize: 10 },
   emptyState: {
     alignItems: 'center',
-    borderRadius: 24,
+    borderRadius: 26,
     borderWidth: 1,
     marginTop: 18,
     paddingHorizontal: 26,
@@ -754,7 +756,7 @@ export const ui = StyleSheet.create({
   },
   subjectIcon: { alignItems: 'center', borderRadius: 13, height: 36, justifyContent: 'center', width: 36 },
   subjectText: { fontFamily: 'Inter_700Bold', fontSize: 12, textAlign: 'center', letterSpacing: -0.2 },
-  gradientPanel: { borderRadius: 26, overflow: 'hidden', padding: 22 },
+  gradientPanel: { borderRadius: 28, overflow: 'hidden', padding: 23 },
   statusPill: { alignSelf: 'flex-start', borderRadius: 99, paddingHorizontal: 10, paddingVertical: 6 },
   statusPillText: { fontFamily: 'Inter_700Bold', fontSize: 10 },
 });
