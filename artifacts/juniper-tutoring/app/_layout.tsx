@@ -19,7 +19,6 @@ import {
 import { router, Stack, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import { useColorScheme } from 'react-native';
 import { useColors } from '@/hooks/useColors';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -70,7 +69,6 @@ function RootLayoutNav() {
 }
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
   const [fontsLoaded, fontError] = useFonts({
     Inter_400Regular,
     Inter_500Medium,
@@ -97,7 +95,7 @@ export default function RootLayout() {
             <KeyboardProvider>
           <AuthProvider>
             <JuniperProvider>
-              <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
+              <StatusBar style="auto" />
               <RootLayoutNav />
             </JuniperProvider>
           </AuthProvider>
