@@ -38,8 +38,8 @@ export function Screen({
 }) {
   const colors = useColors();
   const insets = useSafeAreaInsets();
-  const top = Platform.OS === 'web' ? 67 : Math.max(insets.top, 8);
-  const bottom = Platform.OS === 'web' ? 120 : Math.max(insets.bottom, 18) + 108;
+  const top = Platform.OS === 'web' ? 36 : Math.max(insets.top, 8);
+  const bottom = Platform.OS === 'web' ? 112 : Math.max(insets.bottom, 18) + 108;
   return (
     <View style={[ui.screen, { backgroundColor: colors.background }]}>
       {scroll ? (
@@ -576,17 +576,17 @@ export function StatusPill({
 export const ui = StyleSheet.create({
   screen: { flex: 1 },
   fill: { flex: 1 },
-  page: { paddingHorizontal: 22 },
+  page: { paddingHorizontal: 18 },
   pressed: { opacity: 0.76, transform: [{ scale: 0.985 }] },
   brand: { alignItems: 'center', flexDirection: 'row', gap: 10 },
   brandIcon: {
-    width: 34,
-    height: 34,
-    borderRadius: 12,
+    width: 36,
+    height: 36,
+    borderRadius: 13,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  brandName: { fontFamily: 'Inter_700Bold', fontSize: 21, letterSpacing: -0.9 },
+  brandName: { fontFamily: 'Inter_700Bold', fontSize: 22, letterSpacing: -1.05 },
   brandNameCompact: { fontSize: 17 },
   previewLabel: {
     borderRadius: 99,
@@ -607,7 +607,7 @@ export const ui = StyleSheet.create({
     paddingVertical: 10,
   },
   previewNoticeText: { flex: 1, fontFamily: 'Inter_500Medium', fontSize: 11, lineHeight: 16 },
-  pageHeader: { alignItems: 'center', flexDirection: 'row', gap: 14, marginBottom: 23, paddingBottom: 17, borderBottomWidth: 1 },
+  pageHeader: { alignItems: 'center', flexDirection: 'row', gap: 14, marginBottom: 20, paddingBottom: 16, borderBottomWidth: 1 },
   backButton: {
     alignItems: 'center',
     borderRadius: 16,
@@ -618,7 +618,7 @@ export const ui = StyleSheet.create({
   },
   pageHeaderText: { flex: 1 },
   eyebrow: { fontFamily: 'Inter_700Bold', fontSize: 10, letterSpacing: 1.3, textTransform: 'uppercase', marginBottom: 3 },
-  pageTitle: { fontFamily: 'serif', fontSize: 31, letterSpacing: -0.9, lineHeight: 37 },
+  pageTitle: { fontFamily: 'serif', fontSize: 32, letterSpacing: -1.1, lineHeight: 38 },
   sectionHeading: {
     alignItems: 'center',
     flexDirection: 'row',
@@ -668,11 +668,11 @@ export const ui = StyleSheet.create({
   portraitLarge: { borderRadius: 26, height: 252, width: 200 },
   portraitImage: { height: '100%', width: '100%' },
   tutorCard: {
-    borderRadius: 24,
+    borderRadius: 22,
     borderWidth: 1,
     marginBottom: 14,
     overflow: 'hidden',
-    padding: 13,
+    padding: 12,
     shadowColor: '#183B31',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.05,

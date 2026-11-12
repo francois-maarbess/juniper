@@ -131,7 +131,7 @@ export default function FindScreen() {
       setRealTutors([...byId.values()]);
       setTutorsError('');
     }).catch((error: unknown) => {
-      if (active) setTutorsError(error instanceof Error ? error.message : 'Approved tutor profiles could not be loaded.');
+      if (active) setTutorsError('Tutor profiles are unavailable right now. Try again in a moment.');
     }).finally(() => { if (active) setTutorsLoading(false); });
     return () => { active = false; };
   }, [user, activeRole, request, selectedSubject, selectedLevel, selectedUniversity, selectedCourseCode]);

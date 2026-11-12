@@ -70,7 +70,7 @@ function ClassicTabLayout() {
     <Tabs
       screenListeners={{ tabPress: () => hapticLight() }}
       screenOptions={{
-        tabBarActiveTintColor: colors.primary,
+        tabBarActiveTintColor: colors.tint,
         tabBarInactiveTintColor: colors.mutedForeground,
         tabBarLabelStyle: { fontFamily: 'Inter_700Bold', fontSize: 10, letterSpacing: 0.05, marginTop: 3 },
         headerShown: false,

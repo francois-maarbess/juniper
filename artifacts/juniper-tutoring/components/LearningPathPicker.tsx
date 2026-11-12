@@ -27,19 +27,19 @@ export function LearningPathPicker({
             style={({ pressed }) => [
               styles.card,
               {
-                backgroundColor: active ? colors.leaf : colors.card,
+                backgroundColor: active ? colors.primary : colors.card,
                 borderColor: active ? colors.primary : colors.border,
                 opacity: pressed ? 0.82 : 1,
               },
             ]}
           >
-            <View style={[styles.icon, { backgroundColor: active ? colors.card : colors.leaf }]}>
+            <View style={[styles.icon, { backgroundColor: active ? colors.primaryForeground : colors.leaf }]}>
               <Ionicons name={path.icon as keyof typeof Ionicons.glyphMap} size={18} color={colors.primary} />
             </View>
             <View style={styles.copy}>
-              <Text style={[styles.label, { color: colors.foreground }]}>{path.label}</Text>
+              <Text style={[styles.label, { color: active ? colors.primaryForeground : colors.foreground }]}>{path.label}</Text>
             </View>
-            {active ? <View style={[styles.check, { backgroundColor: colors.primary }]}><Ionicons name="checkmark" size={12} color={colors.primaryForeground} /></View> : null}
+            {active ? <View style={[styles.check, { backgroundColor: colors.primaryForeground }]}><Ionicons name="checkmark" size={12} color={colors.primary} /></View> : null}
           </HapticPressable>
         );
       })}
