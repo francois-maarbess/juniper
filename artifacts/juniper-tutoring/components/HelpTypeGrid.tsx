@@ -22,13 +22,11 @@ export const HELP_TYPES: Array<{
   { id: 'quick_question', title: 'One topic', hint: 'Get unstuck', icon: 'help-circle-outline', serviceType: 'live_session' },
 ];
 
-const surfaces = ['#E5EBDF', '#F2E8D9', '#F2E3DC', '#E4ECE9', '#F1E8D9', '#E8E9DF'];
-
 export function HelpTypeGrid({ onSelect }: { onSelect: (item: (typeof HELP_TYPES)[number]) => void }) {
   const colors = useColors();
   return (
     <View style={styles.grid}>
-      {HELP_TYPES.map((item, index) => {
+      {HELP_TYPES.map((item) => {
         return (
           <HapticPressable
             key={item.id}
@@ -37,12 +35,12 @@ export function HelpTypeGrid({ onSelect }: { onSelect: (item: (typeof HELP_TYPES
             onPress={() => onSelect(item)}
             style={({ pressed }) => [
               styles.tile,
-              { backgroundColor: surfaces[index], borderColor: colors.border, transform: [{ scale: pressed ? 0.975 : 1 }], opacity: pressed ? 0.92 : 1 },
+              { backgroundColor: colors.card, borderColor: colors.border, transform: [{ scale: pressed ? 0.975 : 1 }], opacity: pressed ? 0.92 : 1 },
             ]}
           >
             <View style={styles.ornament} />
-            <View style={[styles.icon, { backgroundColor: 'rgba(255,253,248,0.78)' }]}>
-              <Ionicons name={item.icon} size={19} color={colors.primary} />
+            <View style={[styles.icon, { backgroundColor: colors.iconCircle }]}>
+              <Ionicons name={item.icon} size={19} color={colors.accent} />
             </View>
             <View style={styles.copy}>
               <Text style={[styles.title, { color: colors.foreground }]}>{item.title}</Text>

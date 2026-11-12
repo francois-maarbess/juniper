@@ -7,12 +7,10 @@ import {
   StyleSheet,
   Text,
   View,
-  type ImageSourcePropType,
   type ScrollViewProps,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
-import * as Haptics from 'expo-haptics';
 import { hapticLight } from '@/lib/haptics';
 import Animated, {
   useAnimatedStyle,
@@ -42,6 +40,11 @@ export function Screen({
   const bottom = Platform.OS === 'web' ? 120 : Math.max(insets.bottom, 18) + 108;
   return (
     <View style={[ui.screen, { backgroundColor: colors.background }]}>
+      <LinearGradient
+        colors={[colors.deep, colors.background, colors.deep]}
+        locations={[0, 0.45, 1]}
+        style={StyleSheet.absoluteFill}
+      />
       {scroll ? (
         <ScrollView
           style={ui.screen}
@@ -76,7 +79,7 @@ export function BrandMark({ compact = false, inverted = false }: { compact?: boo
   return (
     <View style={ui.brand}>
       <View style={[ui.brandIcon, { backgroundColor: inverted ? '#FFFFFF' : colors.primary }]}>
-        <Ionicons name="leaf-outline" size={compact ? 17 : 20} color={inverted ? colors.primary : colors.primaryForeground} />
+        <Ionicons name="leaf" size={compact ? 16 : 19} color={inverted ? colors.primaryForeground : colors.primaryForeground} />
       </View>
       <Text style={[ui.brandName, { color: inverted ? '#FFFFFF' : colors.foreground }, compact && ui.brandNameCompact]}>
         juniper
@@ -88,9 +91,9 @@ export function BrandMark({ compact = false, inverted = false }: { compact?: boo
 export function PreviewLabel({ text = 'Preview mode' }: { text?: string }) {
   const colors = useColors();
   return (
-    <View style={[ui.previewLabel, { backgroundColor: colors.leaf }]}>
-      <View style={[ui.previewDot, { backgroundColor: colors.primary }]} />
-      <Text style={[ui.previewLabelText, { color: colors.primary }]}>{text}</Text>
+    <View style={[ui.previewLabel, { backgroundColor: colors.leaf, borderColor: colors.border }]}>
+      <View style={[ui.previewDot, { backgroundColor: colors.accent }]} />
+      <Text style={[ui.previewLabelText, { color: colors.foreground }]}>{text}</Text>
     </View>
   );
 }
@@ -106,18 +109,18 @@ export function PreviewNotice({
     <View
       style={[
         ui.previewNotice,
-        { backgroundColor: persistenceError ? colors.softCoral : colors.leaf },
+        { backgroundColor: persistenceError ? colors.softCoral : colors.card, borderColor: colors.border },
       ]}
     >
       <Ionicons
-        name={persistenceError ? 'alert-circle-outline' : 'information-circle-outline'}
+        name={persistenceError ? 'alert-circle-outline' : 'sparkles-outline'}
         size={16}
-        color={persistenceError ? colors.destructive : colors.primary}
+        color={persistenceError ? colors.destructive : colors.accent}
       />
       <Text
         style={[
           ui.previewNoticeText,
-          { color: persistenceError ? colors.destructive : colors.primary },
+          { color: persistenceError ? colors.destructive : colors.foreground },
         ]}
       >
         {persistenceError
@@ -150,14 +153,18 @@ export function PageHeader({
             hapticLight();
             onBack?.();
           }}
-          style={[ui.backButton, { backgroundColor: colors.card, borderColor: colors.border }]}
+          style={({ pressed }) => [
+            ui.backButton,
+            { backgroundColor: colors.card, borderColor: colors.border },
+            pressed && ui.pressed,
+          ]}
         >
           <Ionicons name="arrow-back" size={19} color={colors.foreground} />
         </Pressable>
       ) : null}
       <View style={ui.pageHeaderText}>
         {eyebrow ? (
-          <Text style={[ui.eyebrow, { color: colors.mutedForeground }]}>{eyebrow}</Text>
+          <Text style={[ui.eyebrow, { color: colors.accent }]}>{eyebrow}</Text>
         ) : null}
         <Text style={[ui.pageTitle, { color: colors.foreground }]}>{title}</Text>
       </View>
@@ -188,7 +195,7 @@ export function SectionHeading({
           accessibilityRole="button"
           style={({ pressed }) => [pressed && ui.pressed]}
         >
-          <Text style={[ui.sectionAction, { color: colors.primary }]}>{action}</Text>
+          <Text style={[ui.sectionAction, { color: colors.accent }]}>{action} →</Text>
         </Pressable>
       ) : null}
     </View>
@@ -212,14 +219,14 @@ export function Pill({
       {icon ? (
         <Ionicons
           name={icon}
-          size={15}
+          size={14}
           color={selected ? colors.primaryForeground : colors.mutedForeground}
         />
       ) : null}
       <Text
         style={[
           ui.pillText,
-          { color: selected ? colors.primaryForeground : colors.secondaryForeground },
+          { color: selected ? colors.primaryForeground : colors.foreground },
         ]}
       >
         {label}
@@ -229,8 +236,9 @@ export function Pill({
   const style = [
     ui.pill,
     {
-      backgroundColor: selected ? colors.primary : colors.card,
-      borderColor: selected ? colors.primary : colors.border,
+      backgroundColor: selected ? colors.accent : colors.card,
+      borderColor: selected ? colors.accent : colors.border,
+      borderTopColor: selected ? colors.accent : 'rgba(255, 255, 255, 0.12)',
     },
   ];
   return onPress ? (
@@ -274,24 +282,24 @@ export function ActionButton({
   }));
   const variants = {
     primary: {
-      backgroundColor: colors.primary,
-      borderColor: colors.primary,
-      color: colors.primaryForeground,
+      backgroundColor: colors.accent,
+      borderColor: colors.accent,
+      color: colors.accentForeground,
     },
     secondary: {
-      backgroundColor: colors.leaf,
-      borderColor: colors.leaf,
-      color: colors.primary,
+      backgroundColor: colors.card,
+      borderColor: colors.border,
+      color: colors.foreground,
     },
     outline: {
-      backgroundColor: colors.card,
+      backgroundColor: 'transparent',
       borderColor: colors.border,
       color: colors.foreground,
     },
     quiet: {
       backgroundColor: 'transparent',
       borderColor: 'transparent',
-      color: colors.primary,
+      color: colors.accent,
     },
   } as const;
   const palette = variants[variant];
@@ -317,7 +325,8 @@ export function ActionButton({
           {
             backgroundColor: palette.backgroundColor,
             borderColor: palette.borderColor,
-            opacity: disabled ? 0.5 : 1,
+            borderTopColor: variant === 'secondary' ? 'rgba(255, 255, 255, 0.12)' : palette.borderColor,
+            opacity: disabled ? 0.45 : 1,
           },
         ]}
       >
@@ -326,7 +335,7 @@ export function ActionButton({
         ) : (
           <>
             <Text style={[ui.actionButtonText, { color: palette.color }]}>{label}</Text>
-            {icon ? <Ionicons name={icon} size={17} color={palette.color} /> : null}
+            {icon ? <Ionicons name={icon} size={16} color={palette.color} /> : null}
           </>
         )}
       </Pressable>
@@ -355,12 +364,16 @@ export function IconButton({
         hapticLight();
         onPress();
       }}
-      style={({ pressed }) => [ui.iconButton, pressed && ui.pressed]}
+      style={({ pressed }) => [
+        ui.iconButton,
+        { backgroundColor: colors.card, borderColor: colors.border },
+        pressed && ui.pressed,
+      ]}
     >
       <Ionicons
         name={icon}
-        size={20}
-        color={selected ? colors.orange : colors.mutedForeground}
+        size={19}
+        color={selected ? colors.accent : colors.mutedForeground}
       />
     </Pressable>
   );
@@ -401,7 +414,11 @@ export const TutorCard = React.memo(function TutorCard({
       style={[
         ui.tutorCard,
         compact && ui.tutorCardCompact,
-        { backgroundColor: colors.card, borderColor: colors.border },
+        {
+          backgroundColor: colors.card,
+          borderColor: colors.border,
+          borderTopColor: '#2A5240',
+        },
       ]}
     >
       <View style={[ui.tutorPhotoWrap, compact && ui.tutorPhotoWrapCompact]}>
@@ -409,7 +426,7 @@ export const TutorCard = React.memo(function TutorCard({
           accessibilityRole="button"
           accessibilityLabel={`View ${tutor.name}'s profile`}
           onPress={onPress}
-          style={({ pressed }) => ({ opacity: pressed ? 0.96 : 1 })}
+          style={({ pressed }) => ({ opacity: pressed ? 0.94 : 1 })}
         >
           <TutorPortrait tutor={tutor} size={compact ? 'small' : 'medium'} />
         </Pressable>
@@ -438,15 +455,15 @@ export const TutorCard = React.memo(function TutorCard({
           <Text style={[ui.tutorName, { color: colors.foreground }]} numberOfLines={1}>
             {tutor.name}
           </Text>
-          <Text style={[ui.tutorPrice, { color: colors.primary }]}>${tutor.hourlyRate}</Text>
+          <Text style={[ui.tutorPrice, { color: colors.accent }]}>${tutor.hourlyRate}</Text>
         </View>
         <Text style={[ui.tutorSubject, { color: colors.mutedForeground }]} numberOfLines={1}>
           {tutor.focus}
         </Text>
         <View style={ui.tutorFooter}>
           <View style={[ui.sampleChip, { backgroundColor: colors.leaf, flexDirection: 'row', alignItems: 'center', gap: 4 }]}>
-            <Ionicons name="shield-checkmark" size={10} color={colors.primary} />
-            <Text style={[ui.sampleChipText, { color: colors.primary }]}>Juniper reviewed</Text>
+            <Ionicons name="shield-checkmark" size={11} color={colors.accent} />
+            <Text style={[ui.sampleChipText, { color: colors.foreground }]}>Juniper reviewed</Text>
           </View>
           <Text style={[ui.perHour, { color: colors.mutedForeground }]}>· direct rate</Text>
         </View>
@@ -470,9 +487,9 @@ export function EmptyState({
 }) {
   const colors = useColors();
   return (
-    <View style={[ui.emptyState, { backgroundColor: colors.card, borderColor: colors.border }]}>
+    <View style={[ui.emptyState, { backgroundColor: colors.card, borderColor: colors.border, borderTopColor: '#2A5240' }]}>
       <View style={[ui.emptyIcon, { backgroundColor: colors.leaf }]}>
-        <Ionicons name={icon} size={25} color={colors.primary} />
+        <Ionicons name={icon} size={24} color={colors.accent} />
       </View>
       <Text style={[ui.emptyTitle, { color: colors.foreground }]}>{title}</Text>
       <Text style={[ui.emptyDescription, { color: colors.mutedForeground }]}>{description}</Text>
@@ -498,13 +515,13 @@ export const SubjectMark = React.memo(function SubjectMark({
       <View
         style={[
           ui.subjectIcon,
-          { backgroundColor: selected ? colors.primaryForeground : colors.leaf },
+          { backgroundColor: selected ? colors.accent : colors.leaf },
         ]}
       >
         <Ionicons
           name={icon as keyof typeof Ionicons.glyphMap}
-          size={19}
-          color={colors.primary}
+          size={18}
+          color={selected ? colors.accentForeground : colors.accent}
         />
       </View>
       <Text style={[ui.subjectText, { color: colors.foreground }]}>{label}</Text>
@@ -513,8 +530,9 @@ export const SubjectMark = React.memo(function SubjectMark({
   const style = [
     ui.subjectMark,
     {
-      backgroundColor: selected ? colors.pale : colors.card,
+      backgroundColor: selected ? colors.card : colors.card,
       borderColor: selected ? colors.accent : colors.border,
+      borderTopColor: selected ? colors.accent : 'rgba(255, 255, 255, 0.12)',
     },
   ];
   return onPress ? (
@@ -544,10 +562,10 @@ export function GradientPanel({
   const colors = useColors();
   return (
     <LinearGradient
-      colors={[colors.primary, colors.deep]}
+      colors={[colors.card, colors.bgElevated]}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
-      style={[ui.gradientPanel, style]}
+      style={[ui.gradientPanel, { borderColor: colors.border }, style]}
     >
       {children}
     </LinearGradient>
@@ -565,20 +583,149 @@ export function StatusPill({
   const background =
     tone === 'clay' ? colors.softCoral : tone === 'neutral' ? colors.muted : colors.leaf;
   const foreground =
-    tone === 'clay' ? colors.destructive : tone === 'neutral' ? colors.mutedForeground : colors.primary;
+    tone === 'clay' ? colors.destructive : tone === 'neutral' ? colors.mutedForeground : colors.accent;
   return (
-    <View style={[ui.statusPill, { backgroundColor: background }]}>
+    <View style={[ui.statusPill, { backgroundColor: background, borderColor: colors.border }]}>
       <Text style={[ui.statusPillText, { color: foreground }]}>{label}</Text>
     </View>
   );
 }
 
+/**
+ * Benchmark Component: Vertical Soundwave / Bar Equalizer
+ * Extracted directly from world-class dark botanical design reference.
+ */
+export function SoundwaveBarProgress({
+  totalBars = 22,
+  activeBarIndex = 11,
+  height = 34,
+}: {
+  totalBars?: number;
+  activeBarIndex?: number;
+  height?: number;
+}) {
+  const colors = useColors();
+  const bars = Array.from({ length: totalBars });
+
+  return (
+    <View style={[ui.equalizerWrap, { height }]}>
+      {bars.map((_, i) => {
+        const isCurrent = i === activeBarIndex;
+        const isCompleted = i < activeBarIndex;
+        const barHeightFraction = 0.5 + 0.5 * Math.sin(((i + 1) / (totalBars + 1)) * Math.PI);
+        const barHeight = isCurrent ? height : Math.max(10, Math.round(height * barHeightFraction * 0.85));
+
+        return (
+          <View
+            key={i}
+            style={[
+              ui.equalizerBar,
+              {
+                height: barHeight,
+                backgroundColor: isCurrent
+                  ? '#FFFFFF'
+                  : isCompleted
+                  ? colors.accent
+                  : colors.secondary,
+                width: isCurrent ? 4 : 3,
+                borderRadius: isCurrent ? 2 : 1.5,
+              },
+            ]}
+          />
+        );
+      })}
+    </View>
+  );
+}
+
+/**
+ * Benchmark Component: Metric Stat Tile (Streak / Hours)
+ * High-contrast numbers, clean tabular layout, circular icon container.
+ */
+export function MetricStatCard({
+  icon,
+  label,
+  value,
+  unit,
+  onPress,
+}: {
+  icon: keyof typeof Ionicons.glyphMap;
+  label: string;
+  value: string | number;
+  unit: string;
+  onPress?: () => void;
+}) {
+  const colors = useColors();
+  const content = (
+    <View style={[ui.metricStatCard, { backgroundColor: colors.card, borderColor: colors.border, borderTopColor: '#2A5240' }]}>
+      <View style={ui.metricStatHeader}>
+        <View style={[ui.metricStatIconCircle, { backgroundColor: 'rgba(255, 255, 255, 0.07)' }]}>
+          <Ionicons name={icon} size={15} color={colors.accent} />
+        </View>
+        <Text style={[ui.metricStatLabel, { color: colors.mutedForeground }]}>{label}</Text>
+      </View>
+      <View style={ui.metricStatValueRow}>
+        <Text style={[ui.metricStatValue, { color: colors.foreground }]}>{value}</Text>
+        <Text style={[ui.metricStatUnit, { color: colors.mutedForeground }]}>{unit}</Text>
+      </View>
+    </View>
+  );
+
+  if (onPress) {
+    return (
+      <Pressable onPress={() => { hapticLight(); onPress(); }} style={({ pressed }) => [ui.metricStatPressable, pressed && ui.pressed]}>
+        {content}
+      </Pressable>
+    );
+  }
+  return content;
+}
+
+/**
+ * Benchmark Component: Frosted Glass Container with Hairline Bevel
+ */
+export function GlassCard({
+  children,
+  style,
+  onPress,
+}: {
+  children: ReactNode;
+  style?: object;
+  onPress?: () => void;
+}) {
+  const colors = useColors();
+  const containerStyle = [
+    ui.glassCard,
+    {
+      backgroundColor: colors.card,
+      borderColor: colors.border,
+      borderTopColor: '#2A5240',
+    },
+    style,
+  ];
+
+  if (onPress) {
+    return (
+      <Pressable
+        onPress={() => {
+          hapticLight();
+          onPress();
+        }}
+        style={({ pressed }) => [containerStyle, pressed && ui.pressed]}
+      >
+        {children}
+      </Pressable>
+    );
+  }
+  return <View style={containerStyle}>{children}</View>;
+}
+
 export const ui = StyleSheet.create({
   screen: { flex: 1 },
   fill: { flex: 1 },
-  page: { paddingHorizontal: 22 },
-  pressed: { opacity: 0.76, transform: [{ scale: 0.985 }] },
-  brand: { alignItems: 'center', flexDirection: 'row', gap: 10 },
+  page: { paddingHorizontal: 20 },
+  pressed: { opacity: 0.8, transform: [{ scale: 0.985 }] },
+  brand: { alignItems: 'center', flexDirection: 'row', gap: 9 },
   brandIcon: {
     width: 34,
     height: 34,
@@ -586,97 +733,100 @@ export const ui = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  brandName: { fontFamily: 'Inter_700Bold', fontSize: 21, letterSpacing: -0.9 },
-  brandNameCompact: { fontSize: 17 },
+  brandName: { fontFamily: 'Inter_700Bold', fontSize: 20, letterSpacing: -0.7 },
+  brandNameCompact: { fontSize: 16 },
   previewLabel: {
     borderRadius: 99,
+    borderWidth: 1,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    paddingHorizontal: 10,
-    paddingVertical: 7,
+    paddingHorizontal: 11,
+    paddingVertical: 6,
   },
   previewDot: { width: 6, height: 6, borderRadius: 3 },
-  previewLabelText: { fontFamily: 'Inter_600SemiBold', fontSize: 10, letterSpacing: 0.2 },
+  previewLabelText: { fontFamily: 'Inter_600SemiBold', fontSize: 11, letterSpacing: 0.1 },
   previewNotice: {
     alignItems: 'center',
-    borderRadius: 12,
+    borderRadius: 14,
+    borderWidth: 1,
     flexDirection: 'row',
-    gap: 8,
-    paddingHorizontal: 12,
+    gap: 9,
+    paddingHorizontal: 14,
     paddingVertical: 10,
   },
-  previewNoticeText: { flex: 1, fontFamily: 'Inter_500Medium', fontSize: 11, lineHeight: 16 },
-  pageHeader: { alignItems: 'center', flexDirection: 'row', gap: 14, marginBottom: 23, paddingBottom: 17, borderBottomWidth: 1 },
+  previewNoticeText: { flex: 1, fontFamily: 'Inter_500Medium', fontSize: 12, lineHeight: 17 },
+  pageHeader: { alignItems: 'center', flexDirection: 'row', gap: 14, marginBottom: 20, paddingBottom: 16, borderBottomWidth: 1 },
   backButton: {
     alignItems: 'center',
-    borderRadius: 16,
+    borderRadius: 15,
     borderWidth: 1,
-    height: 44,
+    height: 42,
     justifyContent: 'center',
-    width: 44,
+    width: 42,
   },
   pageHeaderText: { flex: 1 },
-  eyebrow: { fontFamily: 'Inter_700Bold', fontSize: 10, letterSpacing: 1.3, textTransform: 'uppercase', marginBottom: 3 },
-  pageTitle: { fontFamily: 'serif', fontSize: 31, letterSpacing: -0.9, lineHeight: 37 },
+  eyebrow: { fontFamily: 'Inter_700Bold', fontSize: 10, letterSpacing: 1.2, textTransform: 'uppercase', marginBottom: 2 },
+  pageTitle: { fontFamily: 'Inter_700Bold', fontSize: 28, letterSpacing: -0.8, lineHeight: 34 },
   sectionHeading: {
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 15,
-    marginTop: 32,
+    marginBottom: 13,
+    marginTop: 26,
   },
-  sectionTitle: { fontFamily: 'serif', fontSize: 21, letterSpacing: -0.35 },
-  sectionAction: { fontFamily: 'Inter_700Bold', fontSize: 13, letterSpacing: -0.1 },
+  sectionTitle: { fontFamily: 'Inter_700Bold', fontSize: 18, letterSpacing: -0.4 },
+  sectionAction: { fontFamily: 'Inter_600SemiBold', fontSize: 13, letterSpacing: -0.1 },
   pill: {
     alignItems: 'center',
     borderRadius: 99,
     borderWidth: 1,
     flexDirection: 'row',
     gap: 7,
-    minHeight: 40,
-    paddingHorizontal: 15,
+    minHeight: 38,
+    paddingHorizontal: 14,
   },
-  pillText: { fontFamily: 'Inter_700Bold', fontSize: 12 },
+  pillText: { fontFamily: 'Inter_600SemiBold', fontSize: 12 },
   actionButton: {
     alignItems: 'center',
-    borderRadius: 16,
+    borderRadius: 99,
     borderWidth: 1,
     flexDirection: 'row',
-    gap: 10,
+    gap: 9,
     justifyContent: 'center',
     minHeight: 54,
-    paddingHorizontal: 20,
-    shadowColor: '#183B31',
+    paddingHorizontal: 24,
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.06,
-    shadowRadius: 10,
-    elevation: 2,
+    shadowOpacity: 0.18,
+    shadowRadius: 8,
+    elevation: 3,
   },
   buttonLoadingSkeleton: { height: 16, width: 52, borderRadius: 6 },
-  actionButtonText: { fontFamily: 'Inter_700Bold', fontSize: 14, letterSpacing: -0.2 },
+  actionButtonText: { fontFamily: 'Inter_700Bold', fontSize: 15, letterSpacing: -0.2 },
   iconButton: {
     alignItems: 'center',
     borderRadius: 99,
-    height: 44,
+    borderWidth: 1,
+    height: 42,
     justifyContent: 'center',
-    width: 44,
+    width: 42,
   },
   portraitFrame: { backgroundColor: 'transparent', overflow: 'hidden' },
   portraitSmall: { borderRadius: 16, height: 84, width: 74 },
-  portraitMedium: { borderRadius: 20, height: 148, width: 126 },
-  portraitLarge: { borderRadius: 26, height: 252, width: 200 },
+  portraitMedium: { borderRadius: 20, height: 144, width: 124 },
+  portraitLarge: { borderRadius: 24, height: 240, width: 190 },
   portraitImage: { height: '100%', width: '100%' },
   tutorCard: {
-    borderRadius: 24,
+    borderRadius: 22,
     borderWidth: 1,
-    marginBottom: 14,
+    marginBottom: 12,
     overflow: 'hidden',
     padding: 13,
-    shadowColor: '#183B31',
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.05,
-    shadowRadius: 14,
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
     elevation: 3,
   },
   tutorCardCompact: { alignItems: 'center', flexDirection: 'row', gap: 12 },
@@ -684,7 +834,7 @@ export const ui = StyleSheet.create({
   tutorPhotoWrapCompact: { alignSelf: 'auto' },
   saveOverlay: {
     alignItems: 'center',
-    backgroundColor: 'rgba(255,255,255,0.92)',
+    backgroundColor: 'rgba(14, 42, 28, 0.88)',
     borderRadius: 20,
     height: 36,
     justifyContent: 'center',
@@ -692,50 +842,40 @@ export const ui = StyleSheet.create({
     right: 8,
     top: 8,
     width: 36,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
   },
-  tutorInfo: { paddingHorizontal: 4, paddingTop: 12 },
+  tutorInfo: { paddingHorizontal: 4, paddingTop: 10 },
   tutorInfoCompact: { flex: 1, paddingTop: 0 },
   tutorNameRow: { alignItems: 'center', flexDirection: 'row', gap: 9, justifyContent: 'space-between' },
   tutorName: { flex: 1, fontFamily: 'Inter_700Bold', fontSize: 16, letterSpacing: -0.3 },
-  tutorPrice: { fontFamily: 'Inter_700Bold', fontSize: 15, letterSpacing: -0.2 },
-  tutorSubject: { fontFamily: 'Inter_600SemiBold', fontSize: 12, marginTop: 4 },
+  tutorPrice: { fontFamily: 'Inter_700Bold', fontSize: 15, letterSpacing: -0.2, fontVariant: ['tabular-nums'] },
+  tutorSubject: { fontFamily: 'Inter_500Medium', fontSize: 12, marginTop: 4 },
   tutorFooter: { alignItems: 'center', flexDirection: 'row', gap: 6, marginTop: 10 },
-  sampleChip: { borderRadius: 8, paddingHorizontal: 8, paddingVertical: 5 },
-  sampleChipText: { fontFamily: 'Inter_700Bold', fontSize: 9 },
-  perHour: { fontFamily: 'Inter_600SemiBold', fontSize: 10 },
+  sampleChip: { borderRadius: 8, paddingHorizontal: 8, paddingVertical: 4 },
+  sampleChipText: { fontFamily: 'Inter_600SemiBold', fontSize: 10 },
+  perHour: { fontFamily: 'Inter_500Medium', fontSize: 11 },
   emptyState: {
     alignItems: 'center',
-    borderRadius: 26,
+    borderRadius: 22,
     borderWidth: 1,
-    marginTop: 18,
-    paddingHorizontal: 26,
-    paddingVertical: 32,
-    shadowColor: '#183B31',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.04,
-    shadowRadius: 12,
-    elevation: 2,
+    marginTop: 16,
+    paddingHorizontal: 24,
+    paddingVertical: 28,
   },
   emptyIcon: {
     alignItems: 'center',
-    borderRadius: 20,
-    height: 52,
+    borderRadius: 18,
+    height: 48,
     justifyContent: 'center',
-    marginBottom: 14,
-    width: 52,
+    marginBottom: 12,
+    width: 48,
   },
-  emptyTitle: { fontFamily: 'Inter_700Bold', fontSize: 18, letterSpacing: -0.4, textAlign: 'center' },
+  emptyTitle: { fontFamily: 'Inter_700Bold', fontSize: 17, letterSpacing: -0.3, textAlign: 'center' },
   emptyDescription: {
     fontFamily: 'Inter_400Regular',
     fontSize: 13,
-    lineHeight: 20,
-    marginBottom: 18,
-    marginTop: 8,
+    lineHeight: 19,
+    marginBottom: 16,
+    marginTop: 6,
     maxWidth: 280,
     textAlign: 'center',
   },
@@ -745,18 +885,68 @@ export const ui = StyleSheet.create({
     borderWidth: 1,
     gap: 8,
     justifyContent: 'center',
-    minHeight: 102,
+    minHeight: 96,
     paddingHorizontal: 10,
-    width: 108,
-    shadowColor: '#183B31',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.04,
-    shadowRadius: 10,
-    elevation: 2,
+    width: 104,
   },
-  subjectIcon: { alignItems: 'center', borderRadius: 13, height: 36, justifyContent: 'center', width: 36 },
-  subjectText: { fontFamily: 'Inter_700Bold', fontSize: 12, textAlign: 'center', letterSpacing: -0.2 },
-  gradientPanel: { borderRadius: 28, overflow: 'hidden', padding: 23 },
-  statusPill: { alignSelf: 'flex-start', borderRadius: 99, paddingHorizontal: 10, paddingVertical: 6 },
-  statusPillText: { fontFamily: 'Inter_700Bold', fontSize: 10 },
+  subjectIcon: { alignItems: 'center', borderRadius: 14, height: 36, justifyContent: 'center', width: 36 },
+  subjectText: { fontFamily: 'Inter_600SemiBold', fontSize: 12, textAlign: 'center', letterSpacing: -0.2 },
+  gradientPanel: { borderRadius: 24, borderWidth: 1, overflow: 'hidden', padding: 20 },
+  statusPill: { alignSelf: 'flex-start', borderRadius: 99, borderWidth: 1, paddingHorizontal: 10, paddingVertical: 5 },
+  statusPillText: { fontFamily: 'Inter_600SemiBold', fontSize: 10 },
+  glassCard: {
+    borderRadius: 22,
+    borderWidth: 1,
+    overflow: 'hidden',
+    padding: 16,
+  },
+  equalizerWrap: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 4,
+    justifyContent: 'center',
+    marginVertical: 12,
+  },
+  equalizerBar: {
+    borderRadius: 2,
+  },
+  metricStatCard: {
+    borderRadius: 20,
+    borderWidth: 1,
+    flex: 1,
+    padding: 14,
+  },
+  metricStatPressable: { flex: 1 },
+  metricStatHeader: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 8,
+    marginBottom: 12,
+  },
+  metricStatIconCircle: {
+    alignItems: 'center',
+    borderRadius: 12,
+    height: 26,
+    justifyContent: 'center',
+    width: 26,
+  },
+  metricStatLabel: {
+    fontFamily: 'Inter_600SemiBold',
+    fontSize: 12,
+  },
+  metricStatValueRow: {
+    alignItems: 'baseline',
+    flexDirection: 'row',
+    gap: 6,
+  },
+  metricStatValue: {
+    fontFamily: 'Inter_700Bold',
+    fontSize: 26,
+    fontVariant: ['tabular-nums'],
+    letterSpacing: -0.7,
+  },
+  metricStatUnit: {
+    fontFamily: 'Inter_500Medium',
+    fontSize: 11,
+  },
 });

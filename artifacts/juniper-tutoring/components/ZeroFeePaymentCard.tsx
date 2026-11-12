@@ -38,8 +38,8 @@ export function ZeroFeePaymentCard() {
       <View style={styles.methodsRow}>
         {/* Whish Money */}
         <View style={[styles.methodCard, { backgroundColor: colors.background, borderColor: colors.border }]}>
-          <View style={[styles.methodIconBadge, { backgroundColor: '#F0EBF8' }]}>
-            <Ionicons name="phone-portrait-outline" size={16} color="#6B21A8" />
+          <View style={[styles.methodIconBadge, { backgroundColor: colors.iconCircle }]}>
+            <Ionicons name="phone-portrait-outline" size={16} color={colors.accent} />
           </View>
           <View style={{ flex: 1 }}>
             <Text style={[styles.methodName, { color: colors.foreground }]}>Whish Money</Text>
@@ -49,8 +49,8 @@ export function ZeroFeePaymentCard() {
 
         {/* OMT */}
         <View style={[styles.methodCard, { backgroundColor: colors.background, borderColor: colors.border }]}>
-          <View style={[styles.methodIconBadge, { backgroundColor: '#FEF9C3' }]}>
-            <Ionicons name="storefront-outline" size={16} color="#854D0E" />
+          <View style={[styles.methodIconBadge, { backgroundColor: colors.iconCircle }]}>
+            <Ionicons name="storefront-outline" size={16} color={colors.accent} />
           </View>
           <View style={{ flex: 1 }}>
             <Text style={[styles.methodName, { color: colors.foreground }]}>OMT Intra-Lebanon</Text>
@@ -167,12 +167,12 @@ const styles = StyleSheet.create({
   },
   payButton: {
     alignItems: 'center',
-    borderRadius: 14,
+    borderRadius: 99,
     flexDirection: 'row',
     gap: 8,
     justifyContent: 'center',
     marginTop: 4,
-    paddingVertical: 12,
+    paddingVertical: 13,
   },
   payButtonText: {
     fontFamily: 'Inter_700Bold',

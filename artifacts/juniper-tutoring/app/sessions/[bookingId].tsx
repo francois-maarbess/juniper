@@ -160,11 +160,11 @@ export default function SessionDetailScreen() {
       ) : (
         <>
           {/* Hero Header */}
-          <View style={[styles.hero, { backgroundColor: colors.primary }]}>
+          <View style={[styles.hero, { backgroundColor: colors.card, borderColor: colors.border, borderWidth: 1 }]}>
             <View style={styles.heroTop}>
               <View style={{ flex: 1 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
-                  <Text style={[styles.heroEyebrow, { color: colors.primaryForeground }]}>{session.subject}</Text>
+                  <Text style={[styles.heroEyebrow, { color: colors.accent }]}>{session.subject}</Text>
                   {isAssignment ? (
                     <View style={[styles.heroBadge, { flexDirection: 'row', alignItems: 'center', gap: 4 }]}>
                       <Ionicons name="document-text-outline" size={10} color="#FFFFFF" />
@@ -177,7 +177,7 @@ export default function SessionDetailScreen() {
                     </View>
                   )}
                 </View>
-                <Text style={[styles.heroTitle, { color: colors.primaryForeground }]}>{session.title}</Text>
+                <Text style={[styles.heroTitle, { color: colors.foreground }]}>{session.title}</Text>
               </View>
               <StatusPill
                 label={session.status === 'completed' ? 'Complete' : session.status === 'cancelled' ? 'Cancelled' : 'Confirmed'}
@@ -186,22 +186,22 @@ export default function SessionDetailScreen() {
             </View>
 
             <View style={styles.heroMeta}>
-              <Ionicons name="person-outline" size={15} color={colors.primaryForeground} />
-              <Text style={[styles.heroText, { color: colors.primaryForeground }]}>
+              <Ionicons name="person-outline" size={15} color={colors.mutedForeground} />
+              <Text style={[styles.heroText, { color: colors.foreground }]}>
                 {isTutor ? `Learner: ${session.learnerName}` : `Tutor: ${session.tutorName}`}
               </Text>
             </View>
 
             {session.scheduledAt ? (
               <View style={styles.heroMeta}>
-                <Ionicons name="time-outline" size={15} color={colors.primaryForeground} />
-                <Text style={[styles.heroText, { color: colors.primaryForeground }]}>
+                <Ionicons name="time-outline" size={15} color={colors.mutedForeground} />
+                <Text style={[styles.heroText, { color: colors.foreground }]}>
                   {new Date(session.scheduledAt).toLocaleString()} · {session.durationMinutes} min
                 </Text>
               </View>
             ) : null}
 
-            <Text style={[styles.heroPrice, { color: colors.primaryForeground }]}>
+            <Text style={[styles.heroPrice, { color: colors.foreground }]}>
               Offer · ${(session.amountCents / 100).toFixed(2)}
             </Text>
           </View>

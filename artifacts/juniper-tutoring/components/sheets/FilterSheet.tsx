@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   title: { fontFamily: 'Inter_700Bold', fontSize: 16 },
   caption: { fontFamily: 'Inter_700Bold', fontSize: 10, letterSpacing: 0.8, marginTop: 4 },
   row: { gap: 8, paddingVertical: 4 },
-  doneButton: { alignItems: 'center', borderRadius: 14, marginTop: 8, paddingVertical: 12 },
+  doneButton: { alignItems: 'center', borderRadius: 99, marginTop: 8, paddingVertical: 13 },
   doneText: { fontFamily: 'Inter_700Bold', fontSize: 13 },
   courseInput: { borderRadius: 12, borderWidth: 1, fontFamily: 'Inter_400Regular', fontSize: 13, minHeight: 44, paddingHorizontal: 12 },
 });

@@ -51,15 +51,15 @@ function PublicHome() {
           <Text style={{ color: colors.primary, fontFamily: 'Inter_700Bold', fontSize: 11 }}>Sign in / Register</Text>
         </HapticPressable>
       </View>
-      <View style={[styles.publicHero, { backgroundColor: colors.primary }]}>
+      <View style={[styles.publicHero, { backgroundColor: colors.card, borderColor: colors.border, borderWidth: 1 }]}>
         <View style={styles.publicHeroOrbit} />
         <View style={styles.publicHeroOrbit2} />
       <View style={styles.publicHeroHeading}>
-          <Text style={[styles.publicHeroEyebrow, { color: colors.accentLight }]}>A BETTER WAY TO LEARN</Text>
-          <Text style={[styles.publicHeroTitle, { color: colors.primaryForeground }]}>Get unstuck.{'\n'}Get ahead.</Text>
+          <Text style={[styles.publicHeroEyebrow, { color: colors.accent }]}>A BETTER WAY TO LEARN</Text>
+          <Text style={[styles.publicHeroTitle, { color: colors.foreground }]}>Get unstuck.{'\n'}Get ahead.</Text>
           <Text style={[styles.publicHeroSub, { color: 'rgba(255,252,245,0.84)' }]}>Find a thoughtful tutor, feel supported, and make your next step count.</Text>
         </View>
-        <View style={[styles.searchWrap, styles.publicSearch, { backgroundColor: colors.card, borderColor: colors.card }]}>
+        <View style={[styles.searchWrap, styles.publicSearch, { backgroundColor: colors.bgElevated, borderColor: colors.border }]}>
           <Ionicons name="search-outline" size={18} color={colors.mutedForeground} />
           <TextInput
             value={searchQuery}
@@ -77,11 +77,11 @@ function PublicHome() {
         </View>
         <View style={styles.publicHeroCtaRow}>
           <HapticPressable onPress={() => router.push('/(tabs)/find')} style={[styles.publicHeroCta, { backgroundColor: colors.accent }]}>
-            <Text style={[styles.publicHeroCtaText, { color: colors.primary }]}>Browse Tutors</Text>
-            <Ionicons name="arrow-forward" size={16} color={colors.primary} />
+            <Text style={[styles.publicHeroCtaText, { color: colors.accentForeground }]}>Browse Tutors</Text>
+            <Ionicons name="arrow-forward" size={16} color={colors.accentForeground} />
           </HapticPressable>
-          <HapticPressable onPress={() => router.push('/(auth)/welcome')} style={[styles.publicHeroCtaSecondary, { borderColor: colors.primaryForeground }]}>
-            <Text style={[styles.publicHeroCtaSecondaryText, { color: colors.primaryForeground }]}>Get Started</Text>
+          <HapticPressable onPress={() => router.push('/(auth)/welcome')} style={[styles.publicHeroCtaSecondary, { borderColor: colors.border }]}>
+            <Text style={[styles.publicHeroCtaSecondaryText, { color: colors.foreground }]}>Get Started</Text>
           </HapticPressable>
         </View>
       </View>
@@ -417,75 +417,75 @@ function AccountHome() {
   }
 
   // Learner View
+  const initials = user?.firstName ? (user.firstName[0] + (user.lastName ? user.lastName[0] : '')).toUpperCase() : 'JU';
+
   return (
     <Screen>
-      <View style={styles.topLine}>
-        <BrandMark />
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+      {/* Top Bar with Profile Pill & Tactile Circular Buttons */}
+      <View style={styles.topBarRef}>
+        <HapticPressable
+          accessibilityRole="button"
+          onPress={() => router.push('/(tabs)/profile')}
+          style={({ pressed }) => [styles.avatarPill, { backgroundColor: 'rgba(255, 255, 255, 0.08)', borderColor: colors.border }, pressed && { opacity: 0.8 }]}
+        >
+          <View style={[styles.avatarCircle, { backgroundColor: colors.leaf }]}>
+            <Text style={[styles.avatarInitial, { color: colors.foreground }]}>{initials}</Text>
+          </View>
+          <Ionicons name="chevron-down" size={14} color={colors.mutedForeground} />
+        </HapticPressable>
+
+        <View style={styles.topRightActions}>
           {tutorStatus === 'approved' ? (
             <HapticPressable
               accessibilityRole="button"
               onPress={() => void setActiveRole('tutor')}
               style={({ pressed }) => [
                 styles.roleSwitchBtn,
-                { backgroundColor: colors.leaf, borderColor: colors.primary, opacity: pressed ? 0.75 : 1 },
+                { backgroundColor: colors.card, borderColor: colors.border, opacity: pressed ? 0.75 : 1 },
               ]}
             >
-              <Ionicons name="briefcase-outline" size={13} color={colors.primary} />
-              <Text style={[styles.roleSwitchBtnText, { color: colors.primary }]}>Tutor Studio</Text>
+              <Ionicons name="briefcase-outline" size={13} color={colors.accent} />
+              <Text style={[styles.roleSwitchBtnText, { color: colors.foreground }]}>Tutor Studio</Text>
             </HapticPressable>
           ) : null}
+
           <View style={[styles.accountCountPill, { backgroundColor: colors.pale }]}>
             <Ionicons name="sparkles-outline" size={13} color={colors.primary} />
             <Text style={[styles.accountCountText, { color: colors.primary }]}>{unreadCount ? `${unreadCount} new` : 'Student Hub'}</Text>
           </View>
+
+          <HapticPressable
+            accessibilityRole="button"
+            onPress={() => router.push('/(tabs)/activity')}
+            style={({ pressed }) => [styles.circleActionBtn, { backgroundColor: 'rgba(255, 255, 255, 0.07)', borderColor: colors.border }, pressed && { opacity: 0.75 }]}
+          >
+            <Ionicons name="notifications-outline" size={18} color={colors.foreground} />
+            {unreadCount > 0 ? <View style={[styles.unreadDot, { backgroundColor: colors.accent }]} /> : null}
+          </HapticPressable>
+
+          <HapticPressable
+            accessibilityRole="button"
+            onPress={() => router.push('/(tabs)/profile')}
+            style={({ pressed }) => [styles.circleActionBtn, { backgroundColor: 'rgba(255, 255, 255, 0.07)', borderColor: colors.border }, pressed && { opacity: 0.75 }]}
+          >
+            <Ionicons name="settings-outline" size={18} color={colors.foreground} />
+          </HapticPressable>
         </View>
       </View>
+
+      {/* Welcome & Headline */}
       <View style={styles.accountIntro}>
         <Text style={[styles.tutorStudioBadge, { color: colors.accent }]}>WELCOME BACK, {user?.firstName?.toUpperCase()}</Text>
-        <Text style={[styles.headline, { color: colors.foreground, fontFamily: 'serif', fontSize: 36, letterSpacing: -1.1, lineHeight: 42 }]}>What will you master today?</Text>
+        <Text style={[styles.headline, { color: colors.foreground }]}>What will you master today?</Text>
       </View>
+
       {error ? <Text style={[styles.accountError, { color: colors.destructive }]}>{error}</Text> : null}
 
-      <SectionHeading title="Get unstuck now" />
-      <HelpTypeGrid onSelect={(item) => router.push({ pathname: '/request', params: { helpType: item.id, serviceType: item.serviceType, ...(item.learningPath ? { learningPath: item.learningPath } : {}) } })} />
-      <View style={[styles.requestPromptCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-        <View style={{ alignItems: 'center', flexDirection: 'row', gap: 9 }}>
-          <View style={{ alignItems: 'center', backgroundColor: colors.leaf, borderRadius: 12, height: 36, justifyContent: 'center', width: 36 }}><Ionicons name="chatbubble-ellipses-outline" size={18} color={colors.primary} /></View>
-          <View style={{ flex: 1 }}><Text style={{ color: colors.foreground, fontFamily: 'Inter_700Bold', fontSize: 13 }}>Need help phrasing it?</Text><Text style={{ color: colors.mutedForeground, fontFamily: 'Inter_400Regular', fontSize: 11, marginTop: 2 }}>Type a few words — we'll shape your request for you.</Text></View>
-        </View>
-        <View style={[styles.requestPromptInput, { backgroundColor: colors.background, borderColor: colors.border }]}>
-          <TextInput value={requestPrompt} onChangeText={setRequestPrompt} placeholder="I’m stuck on…" placeholderTextColor={colors.mutedForeground} style={{ color: colors.foreground, flex: 1, fontFamily: 'Inter_400Regular', fontSize: 13, minHeight: 42 }} returnKeyType="go" onSubmitEditing={() => void startWithPrompt()} accessibilityLabel="Describe what you need help with" />
-          <HapticPressable accessibilityRole="button" accessibilityLabel="Help write my request" disabled={requestPrompt.trim().length < 3 || assistingPrompt} onPress={() => void startWithPrompt()} style={({ pressed }) => [styles.searchButton, { backgroundColor: colors.primary, opacity: requestPrompt.trim().length < 3 || assistingPrompt ? 0.45 : pressed ? 0.75 : 1 }]}><Ionicons name={assistingPrompt ? 'hourglass-outline' : 'arrow-forward'} size={16} color={colors.primaryForeground} /></HapticPressable>
-        </View>
-      </View>
-      {suggestedTutors.length ? <>
-        <SectionHeading title="Tutors to explore" action="Browse all" onAction={() => router.push('/(tabs)/find')} />
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 10, paddingBottom: 4 }}>
-          {suggestedTutors.map((tutor) => {
-            const initials = tutor.displayName.split(/\s+/).slice(0, 2).map((part) => part[0]).join('').toUpperCase();
-            return <HapticPressable key={tutor.id} accessibilityRole="button" onPress={() => router.push(`/tutor/${tutor.id}` as never)} style={({ pressed }) => [styles.suggestedTutorCard, { backgroundColor: colors.card, borderColor: colors.border, opacity: pressed ? 0.78 : 1 }]}>
-              <View style={{ alignItems: 'center', flexDirection: 'row', gap: 9 }}>
-                <View style={{ alignItems: 'center', backgroundColor: colors.leaf, borderRadius: 18, height: 42, justifyContent: 'center', width: 42 }}><Text style={{ color: colors.primary, fontFamily: 'Inter_700Bold', fontSize: 14 }}>{initials}</Text></View>
-                <View style={{ flex: 1 }}><Text numberOfLines={1} style={{ color: colors.foreground, fontFamily: 'Inter_700Bold', fontSize: 13 }}>{tutor.displayName}</Text><Text numberOfLines={1} style={{ color: colors.mutedForeground, fontFamily: 'Inter_400Regular', fontSize: 10, marginTop: 3 }}>{tutor.subjects.slice(0, 2).join(' · ')}</Text></View>
-              </View>
-              <View style={{ borderTopColor: colors.border, borderTopWidth: 1, flexDirection: 'row', justifyContent: 'space-between', marginTop: 12, paddingTop: 9 }}>
-                <Text style={{ color: colors.primary, fontFamily: 'Inter_700Bold', fontSize: 12 }}>${(tutor.hourlyRateCents / 100).toFixed(0)} / hour</Text>
-                <Text style={{ color: colors.mutedForeground, fontFamily: 'Inter_500Medium', fontSize: 10 }}>{tutor.reviewCount ? `★ ${tutor.averageRating.toFixed(1)} · ${tutor.reviewCount}` : 'New tutor'}</Text>
-              </View>
-            </HapticPressable>;
-          })}
-        </ScrollView>
-      </> : null}
-      <HapticPressable accessibilityRole="button" onPress={() => router.push('/(tabs)/find')} style={({ pressed }) => [{ alignSelf: 'center', minHeight: 44, justifyContent: 'center', opacity: pressed ? 0.7 : 1 }]}>
-        <Text style={{ color: colors.primary, fontFamily: 'Inter_700Bold', fontSize: 13 }}>Browse tutors instead  →</Text>
-      </HapticPressable>
-
-      {/* Next session */}
+      {/* Next session / Live Session */}
       <SectionHeading title="Your next session" action="All sessions" onAction={() => router.push('/(tabs)/activity')} />
       {upcoming ? (
-        <HapticPressable accessibilityRole="button" onPress={() => router.push(`/workroom/${upcoming.id}` as never)} style={[styles.accountSessionCard, { backgroundColor: colors.card, borderColor: colors.primary, borderWidth: 1.5 }]}>
-          <View style={[styles.accountSessionIcon, { backgroundColor: colors.leaf }]}><Ionicons name="flash" size={19} color={colors.primary} /></View>
+        <HapticPressable accessibilityRole="button" onPress={() => router.push(`/workroom/${upcoming.id}` as never)} style={[styles.accountSessionCard, { backgroundColor: colors.card, borderColor: colors.accent, borderWidth: 1.5 }]}>
+          <View style={[styles.accountSessionIcon, { backgroundColor: colors.leaf }]}><Ionicons name="flash" size={19} color={colors.accent} /></View>
           <View style={styles.accountSessionCopy}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
               <Text style={[styles.accountSessionTitle, { color: colors.foreground }]}>{upcoming.subject} · {upcoming.title}</Text>
@@ -493,7 +493,7 @@ function AccountHome() {
             </View>
             <Text style={[styles.accountSessionMeta, { color: colors.mutedForeground }]}>With {upcoming.tutorName} · Open your session space</Text>
           </View>
-          <Ionicons name="chevron-forward" size={17} color={colors.primary} />
+          <Ionicons name="chevron-forward" size={17} color={colors.accent} />
         </HapticPressable>
       ) : loading ? <HomeSkeleton /> : (
         <EmptyState
@@ -505,20 +505,67 @@ function AccountHome() {
         />
       )}
 
-      {requestCount > 0 ? <HapticPressable accessibilityRole="button" onPress={() => router.push('/(tabs)/activity')} style={[styles.activityNudge, { backgroundColor: colors.pale }]}>
-        <View style={{ flex: 1 }}><Text style={[styles.activityNudgeLabel, { color: colors.primary }]}>YOUR LEARNING</Text><Text style={[styles.activityNudgeTitle, { color: colors.foreground }]}>{requestCount} open {requestCount === 1 ? 'request' : 'requests'}</Text><Text style={[styles.activityNudgeMeta, { color: colors.mutedForeground }]}>See tutor replies and session notes</Text></View>
-        <Ionicons name="arrow-forward" size={18} color={colors.primary} />
+      {/* Subjects & Exploration */}
+      <SectionHeading title="Get unstuck now" />
+      <HelpTypeGrid onSelect={(item) => router.push({ pathname: '/request', params: { helpType: item.id, serviceType: item.serviceType, ...(item.learningPath ? { learningPath: item.learningPath } : {}) } })} />
+
+      {/* Fast Prompt Assistant */}
+      <View style={[styles.requestPromptCard, { backgroundColor: colors.card, borderColor: colors.border, borderTopColor: '#2A5240' }]}>
+        <View style={{ alignItems: 'center', flexDirection: 'row', gap: 9 }}>
+          <View style={{ alignItems: 'center', backgroundColor: colors.leaf, borderRadius: 12, height: 36, justifyContent: 'center', width: 36 }}><Ionicons name="chatbubble-ellipses-outline" size={18} color={colors.accent} /></View>
+          <View style={{ flex: 1 }}><Text style={{ color: colors.foreground, fontFamily: 'Inter_700Bold', fontSize: 13 }}>Need help phrasing it?</Text><Text style={{ color: colors.mutedForeground, fontFamily: 'Inter_400Regular', fontSize: 11, marginTop: 2 }}>Type a few words — we'll shape your request for you.</Text></View>
+        </View>
+        <View style={[styles.requestPromptInput, { backgroundColor: colors.background, borderColor: colors.border }]}>
+          <TextInput value={requestPrompt} onChangeText={setRequestPrompt} placeholder="I’m stuck on…" placeholderTextColor={colors.mutedForeground} style={{ color: colors.foreground, flex: 1, fontFamily: 'Inter_400Regular', fontSize: 13, minHeight: 42 }} returnKeyType="go" onSubmitEditing={() => void startWithPrompt()} accessibilityLabel="Describe what you need help with" />
+          <HapticPressable accessibilityRole="button" accessibilityLabel="Help write my request" disabled={requestPrompt.trim().length < 3 || assistingPrompt} onPress={() => void startWithPrompt()} style={({ pressed }) => [styles.searchButton, { backgroundColor: colors.accent, opacity: requestPrompt.trim().length < 3 || assistingPrompt ? 0.45 : pressed ? 0.75 : 1 }]}><Ionicons name={assistingPrompt ? 'hourglass-outline' : 'arrow-forward'} size={16} color={colors.accentForeground} /></HapticPressable>
+        </View>
+      </View>
+
+      {/* Suggested Tutors */}
+      {suggestedTutors.length ? <>
+        <SectionHeading title="Tutors to explore" action="Browse all" onAction={() => router.push('/(tabs)/find')} />
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 10, paddingBottom: 4 }}>
+          {suggestedTutors.map((tutor) => {
+            const tutorInitials = tutor.displayName.split(/\s+/).slice(0, 2).map((part) => part[0]).join('').toUpperCase();
+            return <HapticPressable key={tutor.id} accessibilityRole="button" onPress={() => router.push(`/tutor/${tutor.id}` as never)} style={({ pressed }) => [styles.suggestedTutorCard, { backgroundColor: colors.card, borderColor: colors.border, borderTopColor: '#2A5240', opacity: pressed ? 0.78 : 1 }]}>
+              <View style={{ alignItems: 'center', flexDirection: 'row', gap: 9 }}>
+                <View style={{ alignItems: 'center', backgroundColor: colors.leaf, borderRadius: 16, height: 42, justifyContent: 'center', width: 42 }}><Text style={{ color: colors.foreground, fontFamily: 'Inter_700Bold', fontSize: 14 }}>{tutorInitials}</Text></View>
+                <View style={{ flex: 1 }}><Text numberOfLines={1} style={{ color: colors.foreground, fontFamily: 'Inter_700Bold', fontSize: 13 }}>{tutor.displayName}</Text><Text numberOfLines={1} style={{ color: colors.mutedForeground, fontFamily: 'Inter_400Regular', fontSize: 10, marginTop: 3 }}>{tutor.subjects.slice(0, 2).join(' · ')}</Text></View>
+              </View>
+              <View style={{ borderTopColor: colors.border, borderTopWidth: 1, flexDirection: 'row', justifyContent: 'space-between', marginTop: 12, paddingTop: 9 }}>
+                <Text style={{ color: colors.accent, fontFamily: 'Inter_700Bold', fontSize: 12 }}>${(tutor.hourlyRateCents / 100).toFixed(0)} / hour</Text>
+                <Text style={{ color: colors.mutedForeground, fontFamily: 'Inter_500Medium', fontSize: 10 }}>{tutor.reviewCount ? `★ ${tutor.averageRating.toFixed(1)} · ${tutor.reviewCount}` : 'New tutor'}</Text>
+              </View>
+            </HapticPressable>;
+          })}
+        </ScrollView>
+      </> : null}
+
+      <HapticPressable accessibilityRole="button" onPress={() => router.push('/(tabs)/find')} style={({ pressed }) => [{ alignSelf: 'center', minHeight: 44, justifyContent: 'center', opacity: pressed ? 0.7 : 1 }]}>
+        <Text style={{ color: colors.primary, fontFamily: 'Inter_700Bold', fontSize: 13 }}>Browse tutors instead  →</Text>
+      </HapticPressable>
+
+      {requestCount > 0 ? <HapticPressable accessibilityRole="button" onPress={() => router.push('/(tabs)/activity')} style={[styles.activityNudge, { backgroundColor: colors.card, borderColor: colors.border, borderWidth: 1 }]}>
+        <View style={{ flex: 1 }}><Text style={[styles.activityNudgeLabel, { color: colors.accent }]}>YOUR LEARNING</Text><Text style={[styles.activityNudgeTitle, { color: colors.foreground }]}>{requestCount} open {requestCount === 1 ? 'request' : 'requests'}</Text><Text style={[styles.activityNudgeMeta, { color: colors.mutedForeground }]}>See tutor replies and session notes</Text></View>
+        <Ionicons name="arrow-forward" size={18} color={colors.accent} />
       </HapticPressable> : null}
 
       {notifications.length ? <>
         <SectionHeading title="A few updates" action="View sessions" onAction={() => router.push('/(tabs)/activity')} />
-        {notifications.slice(0, 2).map((item) => <HapticPressable key={item.id} accessibilityRole="button" onPress={() => void openNotification(item)} style={[styles.accountNotification, { backgroundColor: colors.card, borderColor: colors.border }]}><Ionicons name={item.readAt ? 'checkmark-circle-outline' : 'sparkles-outline'} size={17} color={colors.primary} /><View style={styles.accountSessionCopy}><Text style={[styles.accountSessionTitle, { color: colors.foreground }]}>{item.title}</Text><Text numberOfLines={2} style={[styles.accountSessionMeta, { color: colors.mutedForeground }]}>{item.body}</Text></View></HapticPressable>)}
+        {notifications.slice(0, 2).map((item) => <HapticPressable key={item.id} accessibilityRole="button" onPress={() => void openNotification(item)} style={[styles.accountNotification, { backgroundColor: colors.card, borderColor: colors.border, borderTopColor: '#2A5240' }]}><Ionicons name={item.readAt ? 'checkmark-circle-outline' : 'sparkles-outline'} size={17} color={colors.accent} /><View style={styles.accountSessionCopy}><Text style={[styles.accountSessionTitle, { color: colors.foreground }]}>{item.title}</Text><Text numberOfLines={2} style={[styles.accountSessionMeta, { color: colors.mutedForeground }]}>{item.body}</Text></View></HapticPressable>)}
       </> : null}
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
+  topBarRef: { alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between', marginBottom: 18 },
+  avatarPill: { alignItems: 'center', borderRadius: 99, borderWidth: 1, flexDirection: 'row', gap: 6, paddingHorizontal: 6, paddingVertical: 4, paddingRight: 10 },
+  avatarCircle: { alignItems: 'center', borderRadius: 16, height: 32, justifyContent: 'center', width: 32 },
+  avatarInitial: { fontFamily: 'Inter_700Bold', fontSize: 12 },
+  topRightActions: { alignItems: 'center', flexDirection: 'row', gap: 9 },
+  circleActionBtn: { alignItems: 'center', borderRadius: 20, borderWidth: 1, height: 40, justifyContent: 'center', position: 'relative', width: 40 },
+  unreadDot: { borderRadius: 4, height: 7, position: 'absolute', right: 8, top: 8, width: 7 },
   topLine: { alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 },
   eyebrow: { fontFamily: 'Inter_700Bold', fontSize: 10, letterSpacing: 1.3 },
   accountCountPill: { alignItems: 'center', borderRadius: 99, flexDirection: 'row', gap: 6, paddingHorizontal: 10, paddingVertical: 7 },
@@ -540,24 +587,24 @@ const styles = StyleSheet.create({
   accountError: { fontFamily: 'Inter_600SemiBold', fontSize: 12, lineHeight: 17, marginVertical: 8 },
   profileButton: { alignItems: 'center', borderRadius: 15, height: 44, justifyContent: 'center', width: 44 },
   intro: { marginBottom: 20, marginTop: 18 },
-  headline: { fontFamily: 'serif', fontSize: 36, letterSpacing: -1.1, lineHeight: 42, marginTop: 12, maxWidth: 340 },
+  headline: { fontFamily: 'Inter_800ExtraBold', fontSize: 36, letterSpacing: -1.1, lineHeight: 42, marginTop: 12, maxWidth: 340 },
   subhead: { fontFamily: 'Inter_500Medium', fontSize: 14, lineHeight: 21, marginTop: 8, maxWidth: 320 },
   publicHero: { borderRadius: 30, gap: 18, justifyContent: 'center', marginTop: 4, overflow: 'hidden', paddingHorizontal: 25, paddingVertical: 32, position: 'relative', shadowColor: '#19392E', shadowOffset: { width: 0, height: 9 }, shadowOpacity: 0.13, shadowRadius: 20, elevation: 4 },
   publicHeroOrbit: { borderColor: 'rgba(255,248,235,0.14)', borderRadius: 160, borderWidth: 1, height: 280, position: 'absolute', right: -100, top: -140, width: 280 },
   publicHeroOrbit2: { backgroundColor: 'rgba(212,165,116,0.12)', borderRadius: 200, height: 320, position: 'absolute', left: -120, bottom: -160, width: 320 },
   publicHeroHeading: { gap: 8 },
   publicHeroEyebrow: { fontFamily: 'Inter_700Bold', fontSize: 10, letterSpacing: 1.8, textTransform: 'uppercase' },
-  publicHeroTitle: { fontFamily: 'serif', fontSize: 44, letterSpacing: -1.5, lineHeight: 48 },
+  publicHeroTitle: { fontFamily: 'Inter_900Black', fontSize: 44, letterSpacing: -1.5, lineHeight: 48 },
   publicHeroSub: { fontFamily: 'Inter_400Regular', fontSize: 14, lineHeight: 21, marginTop: 4, maxWidth: 340 },
-  publicSearch: { marginBottom: 0, borderRadius: 17, minHeight: 58, paddingVertical: 7 },
+  publicSearch: { marginBottom: 0, borderRadius: 99, minHeight: 58, paddingVertical: 7 },
   publicHeroCtaRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginTop: 3 },
-  publicHeroCta: { alignItems: 'center', borderRadius: 15, flexDirection: 'row', gap: 8, minHeight: 48, paddingHorizontal: 19, paddingVertical: 12 },
+  publicHeroCta: { alignItems: 'center', borderRadius: 99, flexDirection: 'row', gap: 8, minHeight: 50, paddingHorizontal: 22, paddingVertical: 12 },
   publicHeroCtaText: { fontFamily: 'Inter_700Bold', fontSize: 14 },
-  publicHeroCtaSecondary: { alignItems: 'center', borderRadius: 15, borderWidth: 1.5, justifyContent: 'center', minHeight: 48, paddingHorizontal: 19, paddingVertical: 12 },
+  publicHeroCtaSecondary: { alignItems: 'center', borderRadius: 99, borderWidth: 1.5, justifyContent: 'center', minHeight: 50, paddingHorizontal: 22, paddingVertical: 12 },
   publicHeroCtaSecondaryText: { fontFamily: 'Inter_700Bold', fontSize: 14 },
   activityNudge: { alignItems: 'center', borderRadius: 20, flexDirection: 'row', marginTop: 18, padding: 17 },
   activityNudgeLabel: { fontFamily: 'Inter_700Bold', fontSize: 9, letterSpacing: 1.1 },
-  activityNudgeTitle: { fontFamily: 'serif', fontSize: 20, marginTop: 4 },
+  activityNudgeTitle: { fontFamily: 'Inter_700Bold', fontSize: 20, marginTop: 4 },
   activityNudgeMeta: { fontFamily: 'Inter_500Medium', fontSize: 11, marginTop: 4 },
   hero: { flexDirection: 'row', minHeight: 256, padding: 20, position: 'relative', borderRadius: 24 },
   heroCopy: { flex: 1, maxWidth: '62%', zIndex: 2 },
@@ -626,12 +673,12 @@ const styles = StyleSheet.create({
   directInquiryBudgetText: { fontFamily: 'Inter_700Bold', fontSize: 14 },
   quietCard: { alignItems: 'center', borderRadius: 18, flexDirection: 'row', gap: 12, marginBottom: 14, padding: 14 },
   quietCardText: { flex: 1, fontFamily: 'Inter_400Regular', fontSize: 12, lineHeight: 18 },
-  searchWrap: { alignItems: 'center', borderRadius: 18, borderWidth: 1, flexDirection: 'row', gap: 12, marginBottom: 12, paddingHorizontal: 16, paddingVertical: 14, shadowColor: '#1B4332', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.04, shadowRadius: 8, elevation: 2 },
+  searchWrap: { alignItems: 'center', borderRadius: 99, borderWidth: 1, flexDirection: 'row', gap: 12, marginBottom: 12, paddingHorizontal: 16, paddingVertical: 14, shadowColor: '#1B4332', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.04, shadowRadius: 8, elevation: 2 },
   requestPromptCard: { borderRadius: 18, borderWidth: 1, gap: 10, marginTop: 8, padding: 13 },
   requestPromptInput: { alignItems: 'center', borderRadius: 14, borderWidth: 1, flexDirection: 'row', gap: 8, paddingHorizontal: 10, paddingVertical: 5 },
   suggestedTutorCard: { borderRadius: 18, borderWidth: 1, padding: 12, width: 268 },
   searchInput: { flex: 1, minWidth: 0, fontFamily: 'Inter_400Regular', fontSize: 14 },
-  searchButton: { alignItems: 'center', backgroundColor: '#244A3A', borderRadius: 14, height: 44, justifyContent: 'center', width: 44 },
+  searchButton: { alignItems: 'center', backgroundColor: '#E9D9AC', borderRadius: 14, height: 44, justifyContent: 'center', width: 44 },
   categoryRow: { gap: 10, paddingBottom: 6, paddingRight: 4 },
   categoryCard: { alignItems: 'center', borderRadius: 20, borderWidth: 1, gap: 10, paddingHorizontal: 16, paddingVertical: 16, width: 116, shadowColor: '#1B4332', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.06, shadowRadius: 12, elevation: 3 },
   categoryIcon: { alignItems: 'center', borderRadius: 16, height: 48, justifyContent: 'center', width: 48 },

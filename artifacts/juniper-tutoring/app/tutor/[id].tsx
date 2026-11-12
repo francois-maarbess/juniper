@@ -91,12 +91,12 @@ export default function TutorProfileScreen() {
         />
       ) : null}
       {tutor ? <>
-        <View style={[styles.profileHero, { backgroundColor: colors.leaf }]}>
+        <View style={[styles.profileHero, { backgroundColor: colors.card, borderColor: colors.border, borderWidth: 1, borderTopColor: '#2A5240' }]}>
           {isSample && sample ? (
-            <Image source={sample.photo} style={[styles.heroImage, { backgroundColor: colors.leaf }]} />
+            <Image source={sample.photo} style={[styles.heroImage, { backgroundColor: colors.card }]} />
           ) : (
             <View style={[styles.realHeroImage, { backgroundColor: colors.leaf }]}>
-              <Ionicons name="school-outline" size={42} color={colors.primary} />
+              <Ionicons name="school-outline" size={42} color={colors.accent} />
             </View>
           )}
           <View style={styles.profileTitleWrap}>
@@ -114,18 +114,18 @@ export default function TutorProfileScreen() {
             </View>
             <Text style={[styles.profileName, { color: colors.foreground }]}>{displayName}</Text>
             <Text style={[styles.profileSubject, { color: colors.mutedForeground }]}>{tutor.headline || tutor.subjects.join(' · ')}</Text>
-            <Text style={[styles.profileRate, { color: colors.primary }]}>${(tutor.hourlyRateCents / 100).toFixed(0)}<Text style={[styles.profileRateLabel, { color: colors.mutedForeground }]}> / hour · proposed rate</Text></Text>
+            <Text style={[styles.profileRate, { color: colors.accent }]}>${(tutor.hourlyRateCents / 100).toFixed(0)}<Text style={[styles.profileRateLabel, { color: colors.mutedForeground }]}> / hour · proposed rate</Text></Text>
           </View>
         </View>
 
         {tutor.reviewCount > 0 ? (
-          <View style={[styles.trustCard, { backgroundColor: colors.pale }]}>
+          <View style={[styles.trustCard, { backgroundColor: colors.card, borderColor: colors.border, borderWidth: 1, borderTopColor: '#2A5240' }]}>
             <Ionicons name="star" size={17} color={colors.orange} />
             <Text style={[styles.trustText, { color: colors.foreground }]}>{Number(tutor.averageRating).toFixed(1)} from {tutor.reviewCount} learner {tutor.reviewCount === 1 ? 'review' : 'reviews'} · {tutor.completedSessions} completed sessions</Text>
           </View>
         ) : (
-          <View style={[styles.trustCard, { backgroundColor: colors.pale }]}>
-            <Ionicons name="shield-checkmark-outline" size={17} color={colors.primary} />
+          <View style={[styles.trustCard, { backgroundColor: colors.card, borderColor: colors.border, borderWidth: 1, borderTopColor: '#2A5240' }]}>
+            <Ionicons name="shield-checkmark-outline" size={17} color={colors.accent} />
             <Text style={[styles.trustText, { color: colors.foreground }]}>This tutor’s application was reviewed by Juniper. Learn about their teaching approach and experience below.</Text>
           </View>
         )}
@@ -242,19 +242,19 @@ export default function TutorProfileScreen() {
 }
 
 const styles = StyleSheet.create({
-  profileHero: { alignItems: 'center', flexDirection: 'row', gap: 17, marginTop: 20, padding: 16, borderRadius: 25 },
-  heroImage: { borderRadius: 23, height: 144, width: 116 },
-  realHeroImage: { alignItems: 'center', borderRadius: 23, height: 144, justifyContent: 'center', width: 116 },
-  profileTitleWrap: { flex: 1, gap: 9 },
-  profileName: { fontFamily: 'serif', fontSize: 27, letterSpacing: -0.8, lineHeight: 32 },
-  profileSubject: { fontFamily: 'Inter_600SemiBold', fontSize: 13, lineHeight: 19 },
-  profileRate: { fontFamily: 'Inter_700Bold', fontSize: 20, letterSpacing: -0.4, marginTop: 2 },
+  profileHero: { alignItems: 'center', flexDirection: 'row', gap: 17, marginTop: 18, padding: 16, borderRadius: 22 },
+  heroImage: { borderRadius: 18, height: 140, width: 114 },
+  realHeroImage: { alignItems: 'center', borderRadius: 18, height: 140, justifyContent: 'center', width: 114 },
+  profileTitleWrap: { flex: 1, gap: 8 },
+  profileName: { fontFamily: 'Inter_700Bold', fontSize: 24, letterSpacing: -0.6, lineHeight: 30 },
+  profileSubject: { fontFamily: 'Inter_500Medium', fontSize: 13, lineHeight: 18 },
+  profileRate: { fontFamily: 'Inter_700Bold', fontSize: 20, letterSpacing: -0.4, marginTop: 2, fontVariant: ['tabular-nums'] },
   profileRateLabel: { fontFamily: 'Inter_500Medium', fontSize: 11 },
-  trustCard: { alignItems: 'center', borderRadius: 18, flexDirection: 'row', gap: 10, marginTop: 18, padding: 15 },
+  trustCard: { alignItems: 'center', borderRadius: 18, flexDirection: 'row', gap: 10, marginTop: 16, padding: 14 },
   trustText: { flex: 1, fontFamily: 'Inter_500Medium', fontSize: 12, lineHeight: 18 },
-  aboutText: { fontFamily: 'Inter_400Regular', fontSize: 14, lineHeight: 23 },
+  aboutText: { fontFamily: 'Inter_400Regular', fontSize: 14, lineHeight: 22 },
   tagRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 4 },
-  approachCard: { alignItems: 'center', borderRadius: 19, borderWidth: 1, flexDirection: 'row', gap: 11, marginTop: 14, padding: 16 },
+  approachCard: { alignItems: 'center', borderRadius: 18, borderWidth: 1, borderTopColor: '#2A5240', flexDirection: 'row', gap: 11, marginTop: 12, padding: 14 },
   approachText: { flex: 1, fontFamily: 'Inter_500Medium', fontSize: 12, lineHeight: 18 },
   paymentNotice: { alignItems: 'flex-start', borderRadius: 14, flexDirection: 'row', gap: 9, marginTop: 16, padding: 12 },
   paymentNoticeText: { flex: 1, fontFamily: 'Inter_400Regular', fontSize: 11, lineHeight: 16 },

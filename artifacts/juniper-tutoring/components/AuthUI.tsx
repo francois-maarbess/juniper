@@ -130,7 +130,7 @@ export function AuthButton({
       }]}
     >
       {loading ? <SkeletonBlock style={{ height: 18, width: 52, borderRadius: 6 }} /> : (
-        <Text style={[styles.buttonText, { color: primary ? colors.primaryForeground : colors.primary }]}>{label}</Text>
+        <Text style={[styles.buttonText, { color: primary ? colors.primaryForeground : colors.foreground }]}>{label}</Text>
       )}
     </HapticPressable>
   );
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
   storyContent: { zIndex: 1, maxWidth: 390 },
   storyIcon: { width: 42, height: 42, borderRadius: 14, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.12)', borderColor: 'rgba(255,255,255,0.18)', borderWidth: 1, marginBottom: 20 },
   storyEyebrow: { color: '#C1D1C3', fontFamily: 'Inter_600SemiBold', fontSize: 9, letterSpacing: 1.3, marginBottom: 8 },
-  storyTitle: { color: '#FFFCF5', fontFamily: 'serif', fontSize: 36, lineHeight: 42, letterSpacing: -0.8 },
+  storyTitle: { color: '#FFFFFF', fontFamily: 'Inter_800ExtraBold', fontSize: 36, lineHeight: 42, letterSpacing: -0.8 },
   storyDescription: { color: '#E3E9DF', fontFamily: 'Inter_400Regular', fontSize: 13, lineHeight: 20, marginTop: 10, maxWidth: 330 },
   storyDivider: { width: 42, height: 1, backgroundColor: 'rgba(255,255,255,0.3)', marginTop: 19, marginBottom: 13 },
   storyFooter: { flexDirection: 'row', alignItems: 'center', gap: 10 },
@@ -181,13 +181,13 @@ const styles = StyleSheet.create({
   formPanel: { borderWidth: 1, borderRadius: 28, padding: 23, shadowColor: '#19382F', shadowOpacity: 0.07, shadowRadius: 26, shadowOffset: { width: 0, height: 12 } },
   formPanelWide: { width: 430, borderTopLeftRadius: 0, borderBottomLeftRadius: 0, justifyContent: 'center', paddingHorizontal: 40, paddingTop: 56 },
   formEyebrow: { fontFamily: 'Inter_700Bold', fontSize: 10, letterSpacing: 1.3, marginBottom: 7 },
-  formTitle: { fontFamily: 'serif', fontSize: 30, lineHeight: 36, letterSpacing: -0.7 },
+  formTitle: { fontFamily: 'Inter_800ExtraBold', fontSize: 30, lineHeight: 36, letterSpacing: -0.7 },
   formDescription: { fontFamily: 'Inter_400Regular', fontSize: 13, lineHeight: 19, marginTop: 7 },
   formContent: { marginTop: 22, gap: 14 },
   fieldGroup: { gap: 7 },
   fieldLabel: { fontFamily: 'Inter_700Bold', fontSize: 12, letterSpacing: -0.1 },
   input: { minHeight: 52, borderWidth: 1, borderRadius: 15, paddingHorizontal: 15, fontFamily: 'Inter_400Regular', fontSize: 14, outlineStyle: 'none' as never },
-  button: { minHeight: 56, borderRadius: 17, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 20, marginTop: 4, shadowColor: '#183B31', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.1, shadowRadius: 11, elevation: 2 },
+  button: { minHeight: 56, borderRadius: 99, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 20, marginTop: 4, shadowColor: '#183B31', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.1, shadowRadius: 11, elevation: 2 },
   buttonText: { fontFamily: 'Inter_700Bold', fontSize: 14, letterSpacing: -0.2 },
   link: { fontFamily: 'Inter_700Bold', fontSize: 12, textAlign: 'center', paddingVertical: 6 },
   message: { borderRadius: 14, paddingHorizontal: 12, paddingVertical: 11, flexDirection: 'row', alignItems: 'flex-start', gap: 9 },

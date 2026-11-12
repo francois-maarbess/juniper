@@ -617,20 +617,23 @@ export default function WorkroomScreen() {
                 styles.messageBubble,
                 item.senderId === user?.id ? styles.outgoingBubble : styles.incomingBubble,
                 {
-                  backgroundColor: item.senderId === user?.id ? colors.primary : colors.card,
+                  backgroundColor: item.senderId === user?.id ? colors.accent : colors.card,
                   borderColor: colors.border,
+                  borderTopColor: '#2A5240',
                 },
               ]}
             >
               <Text
                 style={{
-                  color: item.senderId === user?.id ? colors.primaryForeground : colors.foreground,
+                  color: item.senderId === user?.id ? colors.accentForeground : colors.foreground,
+                  fontFamily: 'Inter_500Medium',
                   fontSize: 14,
+                  lineHeight: 20,
                 }}
               >
                 {item.text}
               </Text>
-              <Text style={[styles.messageTime, { color: colors.mutedForeground }]}>
+              <Text style={[styles.messageTime, { color: item.senderId === user?.id ? 'rgba(9, 21, 14, 0.7)' : colors.mutedForeground }]}>
                 {new Date(item.createdAt).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
               </Text>
             </View>
@@ -700,13 +703,13 @@ export default function WorkroomScreen() {
             onPress={() => void handleSendMessage()}
             style={[
               styles.sendButton,
-              { backgroundColor: draft.trim() || pendingAttachments.length ? colors.primary : colors.muted },
+              { backgroundColor: draft.trim() || pendingAttachments.length ? colors.accent : colors.muted },
             ]}
           >
             <Ionicons
               name="arrow-up"
               size={19}
-              color={draft.trim() || pendingAttachments.length ? colors.primaryForeground : colors.mutedForeground}
+              color={draft.trim() || pendingAttachments.length ? colors.accentForeground : colors.mutedForeground}
             />
           </HapticPressable>
         </View>
@@ -744,8 +747,8 @@ const styles = StyleSheet.create({
   toggleBtn: { borderRadius: 8, paddingHorizontal: 10, paddingVertical: 5 },
   toggleBtnText: { fontFamily: 'Inter_700Bold', fontSize: 11 },
   deliveryForm: { gap: 8, marginTop: 10 },
-  formInput: { borderRadius: 10, borderWidth: 1, borderColor: '#D1D5DB', fontSize: 13, padding: 8 },
-  formTextArea: { borderRadius: 10, borderWidth: 1, borderColor: '#D1D5DB', fontSize: 13, minHeight: 70, padding: 8 },
+  formInput: { borderRadius: 10, borderWidth: 1, borderColor: '#2A5240', fontSize: 13, padding: 8 },
+  formTextArea: { borderRadius: 10, borderWidth: 1, borderColor: '#2A5240', fontSize: 13, minHeight: 70, padding: 8 },
   walkthroughText: { fontFamily: 'Inter_400Regular', fontSize: 12, lineHeight: 18, marginTop: 8 },
   statusMsg: { fontFamily: 'Inter_600SemiBold', fontSize: 11, marginTop: 4 },
   whiteboardWrap: { height: 220, marginBottom: 8, paddingHorizontal: 16 },

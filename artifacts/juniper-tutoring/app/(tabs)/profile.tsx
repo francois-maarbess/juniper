@@ -58,12 +58,12 @@ export default function ProfileScreen() {
       <PageHeader title="Your profile" eyebrow={user ? 'YOUR JUNIPER ACCOUNT' : 'A JUNIPER PREVIEW'} />
       {!user ? <PreviewNotice /> : null}
 
-      {!user ? <View style={[styles.rolePanel, { backgroundColor: colors.primary }]}>
-            <Text style={[styles.roleEyebrow, { color: colors.primaryForeground }]}>EXPLORE THE PREVIEW</Text>
-        <Text style={[styles.roleTitle, { color: colors.primaryForeground }]}>
+      {!user ? <View style={[styles.rolePanel, { backgroundColor: colors.card, borderColor: colors.border, borderWidth: 1 }]}>
+            <Text style={[styles.roleEyebrow, { color: colors.accent }]}>EXPLORE THE PREVIEW</Text>
+        <Text style={[styles.roleTitle, { color: colors.foreground }]}>
           {state.role === 'student' ? 'A learner' : 'A tutor'}
         </Text>
-          <Text style={[styles.roleDescription, { color: colors.primaryForeground }]}>
+          <Text style={[styles.roleDescription, { color: colors.mutedForeground }]}>
           Sample profiles and activity are for exploring the design. Your real account stays yours.
         </Text>
         <View style={[styles.roleSwitch, { backgroundColor: colors.deep }]}>
@@ -82,7 +82,7 @@ export default function ProfileScreen() {
               <Text
                 style={[
                   styles.roleOptionText,
-                  { color: state.role === role ? colors.primary : colors.primaryForeground },
+                  { color: state.role === role ? colors.accent : colors.foreground },
                 ]}
               >
                 {role === 'student' ? 'Learner' : 'Tutor'}
@@ -94,17 +94,17 @@ export default function ProfileScreen() {
 
       {activeRole === 'student' ? (
         <>
-          <View style={[styles.identityCard, { backgroundColor: colors.primary, borderColor: colors.primary }]}>
-            <View style={[styles.identityAvatar, { backgroundColor: 'rgba(255,253,248,0.14)' }]}>
-              <Ionicons name="person-outline" size={23} color={colors.primaryForeground} />
+          <View style={[styles.identityCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+            <View style={[styles.identityAvatar, { backgroundColor: colors.iconCircle }]}>
+              <Ionicons name="person-outline" size={23} color={colors.accent} />
             </View>
             <View style={styles.identityCopy}>
-              <Text style={[styles.identityName, { color: colors.primaryForeground }]}>{user ? `${user.firstName}${user.lastName ? ` ${user.lastName}` : ''}` : 'Your Juniper account'}</Text>
-              <Text style={[styles.identityCaption, { color: colors.primaryForeground, opacity: 0.78 }]}>
+              <Text style={[styles.identityName, { color: colors.foreground }]}>{user ? `${user.firstName}${user.lastName ? ` ${user.lastName}` : ''}` : 'Your Juniper account'}</Text>
+              <Text style={[styles.identityCaption, { color: colors.mutedForeground }]}>
                 {user?.email ?? 'Sign in to keep your account with you'}
               </Text>
             </View>
-            <Ionicons name={user?.emailVerifiedAt ? 'checkmark-circle' : 'person-circle-outline'} size={20} color={user?.emailVerifiedAt ? '#B9D8B1' : colors.primaryForeground} />
+            <Ionicons name={user?.emailVerifiedAt ? 'checkmark-circle' : 'person-circle-outline'} size={20} color={user?.emailVerifiedAt ? '#B9D8B1' : colors.mutedForeground} />
           </View>
           <SectionHeading title="Your learning" />
           {!user ? <HapticPressable
@@ -299,17 +299,17 @@ const styles = StyleSheet.create({
   roleSwitch: { borderRadius: 16, flexDirection: 'row', gap: 6, marginTop: 18, padding: 5 },
   roleOption: { alignItems: 'center', borderRadius: 12, flex: 1, minHeight: 40, justifyContent: 'center' },
   roleOptionText: { fontFamily: 'Inter_700Bold', fontSize: 13 },
-  identityCard: { alignItems: 'center', borderRadius: 24, borderWidth: 1, flexDirection: 'row', gap: 14, padding: 18, shadowColor: '#183B31', shadowOffset: { width: 0, height: 5 }, shadowOpacity: 0.1, shadowRadius: 16, elevation: 4 },
+  identityCard: { alignItems: 'center', borderRadius: 22, borderWidth: 1, borderTopColor: '#2A5240', flexDirection: 'row', gap: 14, padding: 18 },
   identityAvatar: { alignItems: 'center', borderRadius: 16, height: 48, justifyContent: 'center', width: 48 },
   identityCopy: { flex: 1 },
-  identityName: { fontFamily: 'serif', fontSize: 21, letterSpacing: -0.35 },
-  identityCaption: { fontFamily: 'Inter_500Medium', fontSize: 11, marginTop: 5 },
-  menuRow: { alignItems: 'center', borderBottomWidth: 1, flexDirection: 'row', gap: 14, minHeight: 56 },
-  menuLabel: { flex: 1, fontFamily: 'Inter_700Bold', fontSize: 13 },
+  identityName: { fontFamily: 'Inter_700Bold', fontSize: 20, letterSpacing: -0.35 },
+  identityCaption: { fontFamily: 'Inter_500Medium', fontSize: 11, marginTop: 4 },
+  menuRow: { alignItems: 'center', borderBottomWidth: 1, flexDirection: 'row', gap: 14, minHeight: 54 },
+  menuLabel: { flex: 1, fontFamily: 'Inter_600SemiBold', fontSize: 13 },
   menuValue: { fontFamily: 'Inter_500Medium', fontSize: 12 },
   settingHint: { fontFamily: 'Inter_400Regular', fontSize: 12, lineHeight: 18, marginBottom: 12 },
   tutorPicker: { gap: 10, paddingBottom: 6 },
-  tutorOption: { alignItems: 'center', borderRadius: 18, borderWidth: 1, gap: 7, padding: 10, width: 110, shadowColor: '#183B31', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.04, shadowRadius: 6, elevation: 1 },
+  tutorOption: { alignItems: 'center', borderRadius: 18, borderWidth: 1, gap: 7, padding: 10, width: 110 },
   tutorOptionName: { fontFamily: 'Inter_700Bold', fontSize: 12 },
   tutorOptionSubject: { fontFamily: 'Inter_400Regular', fontSize: 10, textAlign: 'center' },
   feeCard: { alignItems: 'center', borderRadius: 22, flexDirection: 'row', gap: 14, marginTop: 18, padding: 16 },
@@ -317,7 +317,7 @@ const styles = StyleSheet.create({
   feeCopy: { flex: 1 },
   feeTitle: { fontFamily: 'Inter_700Bold', fontSize: 14 },
   feeDetail: { fontFamily: 'Inter_400Regular', fontSize: 11, lineHeight: 17, marginTop: 4 },
-  aboutCard: { borderRadius: 22, borderWidth: 1, padding: 18, shadowColor: '#183B31', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.04, shadowRadius: 8, elevation: 2 },
+  aboutCard: { borderRadius: 22, borderWidth: 1, borderTopColor: '#2A5240', padding: 18 },
   aboutTitle: { fontFamily: 'Inter_700Bold', fontSize: 20, letterSpacing: -0.4 },
   aboutText: { fontFamily: 'Inter_400Regular', fontSize: 13, lineHeight: 19, marginTop: 8 },
   aboutDivider: { height: 1, marginVertical: 14 },

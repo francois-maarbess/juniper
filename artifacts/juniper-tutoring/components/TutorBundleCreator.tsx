@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     paddingVertical: 1,
   },
   pillBadgeText: {
-    color: '#FFFFFF',
+    color: '#0E2A1C',
     fontFamily: 'Inter_700Bold',
     fontSize: 8,
   },

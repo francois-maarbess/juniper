@@ -418,11 +418,11 @@ const styles = StyleSheet.create({
   },
   sendVoiceButton: {
     alignItems: 'center',
-    borderRadius: 12,
+    borderRadius: 99,
     flexDirection: 'row',
     gap: 5,
-    paddingHorizontal: 14,
-    paddingVertical: 6,
+    paddingHorizontal: 16,
+    paddingVertical: 7,
   },
   uploadSkeleton: { height: 14, width: 42, borderRadius: 6 },
   sendVoiceText: {

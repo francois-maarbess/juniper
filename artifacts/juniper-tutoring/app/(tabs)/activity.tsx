@@ -247,10 +247,10 @@ export default function ActivityScreen() {
                   <HapticPressable
                     accessibilityRole="button"
                     onPress={() => router.push(`/workroom/${booking.id}`)}
-                    style={({ pressed }) => [styles.chatButton, { backgroundColor: colors.primary, opacity: pressed ? 0.75 : 1 }]}
+                    style={({ pressed }) => [styles.chatButton, { backgroundColor: colors.accent, opacity: pressed ? 0.75 : 1 }]}
                   >
-                    <Ionicons name="folder-open" size={16} color="#FFFFFF" />
-                    <Text style={[styles.chatButtonText, { color: '#FFFFFF' }]}>Open session</Text>
+                    <Ionicons name="folder-open" size={16} color={colors.accentForeground} />
+                    <Text style={[styles.chatButtonText, { color: colors.accentForeground }]}>Open session</Text>
                   </HapticPressable>
                 </View>
               </View>
@@ -379,8 +379,8 @@ export default function ActivityScreen() {
                     { backgroundColor: colors.primary, opacity: pressed ? 0.75 : 1 },
                   ]}
                 >
-                  <Ionicons name="folder-open" size={16} color="#FFFFFF" />
-                  <Text style={[styles.chatButtonText, { color: '#FFFFFF' }]}>Open session</Text>
+                  <Ionicons name="folder-open" size={16} color={colors.primaryForeground} />
+                  <Text style={[styles.chatButtonText, { color: colors.primaryForeground }]}>Open session</Text>
                 </HapticPressable>
               </View>
               {booking.status === 'upcoming' ? (
@@ -422,16 +422,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 20,
     borderWidth: 1,
+    borderTopColor: '#2A5240',
     flexDirection: 'row',
     gap: 14,
     marginBottom: 12,
-    minHeight: 76,
+    minHeight: 74,
     paddingHorizontal: 16,
-    shadowColor: '#183B31',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.04,
-    shadowRadius: 8,
-    elevation: 2,
   },
   requestIcon: { alignItems: 'center', borderRadius: 14, height: 42, justifyContent: 'center', width: 42 },
   requestCopy: { flex: 1 },
@@ -439,7 +435,7 @@ const styles = StyleSheet.create({
   requestMeta: { fontFamily: 'Inter_500Medium', fontSize: 11, marginTop: 4 },
   accountError: { fontFamily: 'Inter_600SemiBold', fontSize: 12, lineHeight: 18, marginTop: 12 },
   accountAvatar: { alignItems: 'center', borderRadius: 16, height: 44, justifyContent: 'center', width: 44 },
-  bookingCard: { borderRadius: 22, borderWidth: 1, marginBottom: 14, padding: 16, shadowColor: '#183B31', shadowOffset: { width: 0, height: 3 }, shadowOpacity: 0.05, shadowRadius: 10, elevation: 2 },
+  bookingCard: { borderRadius: 22, borderWidth: 1, borderTopColor: '#2A5240', marginBottom: 14, padding: 16 },
   bookingMain: { alignItems: 'center', flexDirection: 'row', gap: 14 },
   bookingInfo: { flex: 1 },
   bookingName: { fontFamily: 'Inter_700Bold', fontSize: 16, letterSpacing: -0.3 },
@@ -447,7 +443,7 @@ const styles = StyleSheet.create({
   bookingTime: { fontFamily: 'Inter_600SemiBold', fontSize: 12, marginTop: 4 },
   bookingDivider: { height: 1, marginVertical: 14 },
   bookingActions: { alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between' },
-  bookingPrice: { fontFamily: 'Inter_700Bold', fontSize: 13 },
-  chatButton: { alignItems: 'center', borderRadius: 14, flexDirection: 'row', gap: 8, minHeight: 38, paddingHorizontal: 14, paddingVertical: 8 },
+  bookingPrice: { fontFamily: 'Inter_700Bold', fontSize: 13, fontVariant: ['tabular-nums'] },
+  chatButton: { alignItems: 'center', borderRadius: 99, flexDirection: 'row', gap: 8, minHeight: 38, paddingHorizontal: 16, paddingVertical: 8 },
   chatButtonText: { fontFamily: 'Inter_700Bold', fontSize: 12 },
 });

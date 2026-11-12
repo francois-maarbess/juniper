@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   content: { gap: 12, padding: 20 },
   title: { fontFamily: 'Inter_700Bold', fontSize: 16 },
   subtitle: { fontFamily: 'Inter_400Regular', fontSize: 12 },
-  pickButton: { alignItems: 'center', borderRadius: 14, flexDirection: 'row', gap: 8, justifyContent: 'center', paddingVertical: 12 },
+  pickButton: { alignItems: 'center', borderRadius: 99, flexDirection: 'row', gap: 8, justifyContent: 'center', paddingVertical: 13 },
   pickText: { fontFamily: 'Inter_700Bold', fontSize: 13 },
   list: { maxHeight: 160 },
   fileRow: { alignItems: 'center', borderRadius: 12, borderWidth: 1, flexDirection: 'row', gap: 10, marginBottom: 8, padding: 10 },

@@ -70,8 +70,8 @@ export default function BookTutorScreen() {
   return (
     <Screen>
       <PageHeader title="Ask about a time" eyebrow={tutorName ? `With ${tutorName}` : 'Tutor availability'} onBack={() => router.back()} />
-      <View style={[styles.explainer, { backgroundColor: colors.pale }]}>
-        <Ionicons name="information-circle-outline" size={18} color={colors.primary} />
+      <View style={[styles.explainer, { backgroundColor: colors.card, borderColor: colors.border, borderWidth: 1, borderTopColor: '#2A5240' }]}>
+        <Ionicons name="information-circle-outline" size={18} color={colors.accent} />
         <Text style={[styles.explainerText, { color: colors.foreground }]}>These times are listed by the tutor. Choose one to request it; the tutor will confirm before a session is arranged.</Text>
       </View>
       {error ? <Text style={[styles.error, { color: colors.destructive }]}>{error}</Text> : null}
@@ -101,13 +101,13 @@ export default function BookTutorScreen() {
                     },
                   ]}
                 >
-                  <Text style={[styles.slotTime, { color: colors.primary }]}>
+                  <Text style={[styles.slotTime, { color: colors.accent }]}>
                     {new Date(slot.startAt).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
                   </Text>
                   <Text style={[styles.slotPrice, { color: colors.mutedForeground }]}>
                     ${(slot.priceCents / 100).toFixed(0)} / hour
                   </Text>
-                  <Text style={[styles.slotPrice, { color: colors.primary }]}>Ask about this time</Text>
+                  <Text style={[styles.slotPrice, { color: colors.accent, marginTop: 4 }]}>Ask about this time</Text>
                 </HapticPressable>
               );
             })}
@@ -127,10 +127,10 @@ const styles = StyleSheet.create({
   loading: { fontFamily: 'Inter_400Regular', fontSize: 13, padding: 20 },
   empty: { alignItems: 'center', gap: 10, padding: 40 },
   emptyText: { fontFamily: 'Inter_400Regular', fontSize: 13, textAlign: 'center' },
-  dayGroup: { marginBottom: 16, paddingHorizontal: 20 },
+  dayGroup: { marginBottom: 16, paddingHorizontal: 4 },
   dayLabel: { fontFamily: 'Inter_700Bold', fontSize: 13, marginBottom: 8 },
   slotGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
-  slot: { alignItems: 'center', borderRadius: 12, borderWidth: 1.5, paddingHorizontal: 12, paddingVertical: 10, minWidth: 80 },
-  slotTime: { fontFamily: 'Inter_700Bold', fontSize: 12 },
-  slotPrice: { fontFamily: 'Inter_600SemiBold', fontSize: 10, marginTop: 2 },
+  slot: { alignItems: 'center', borderRadius: 16, borderWidth: 1, borderTopColor: '#2A5240', paddingHorizontal: 14, paddingVertical: 12, minWidth: 90 },
+  slotTime: { fontFamily: 'Inter_700Bold', fontSize: 13, fontVariant: ['tabular-nums'] },
+  slotPrice: { fontFamily: 'Inter_600SemiBold', fontSize: 11, marginTop: 2, fontVariant: ['tabular-nums'] },
 });

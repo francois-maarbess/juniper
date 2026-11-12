@@ -66,39 +66,58 @@ function ClassicTabLayout() {
   const isIOS = Platform.OS === 'ios';
   const isWeb = Platform.OS === 'web';
 
+  const renderTabIcon = (icon: React.ReactNode, focused: boolean) => (
+    <View style={{ alignItems: 'center' }}>
+      <View
+        style={{
+          width: 6,
+          height: 6,
+          borderRadius: 3,
+          backgroundColor: focused ? colors.accent : 'transparent',
+          marginBottom: 4,
+        }}
+      />
+      {icon}
+    </View>
+  );
+
   return (
     <Tabs
       screenListeners={{ tabPress: () => hapticLight() }}
       screenOptions={{
-        tabBarActiveTintColor: colors.primary,
+        tabBarActiveTintColor: colors.accent,
         tabBarInactiveTintColor: colors.mutedForeground,
-        tabBarLabelStyle: { fontFamily: 'Inter_700Bold', fontSize: 10, letterSpacing: 0.05, marginTop: 3 },
+        tabBarLabelStyle: { fontFamily: 'Inter_600SemiBold', fontSize: 10, letterSpacing: 0.1, marginTop: 3 },
         headerShown: false,
         tabBarStyle: {
           position: 'absolute',
-          backgroundColor: isIOS ? 'transparent' : colors.card,
-          borderTopWidth: isWeb ? 1 : 0,
-          borderTopColor: colors.border,
+          backgroundColor: 'transparent',
+          borderTopWidth: 0,
           elevation: 0,
-          paddingTop: 9,
-          paddingBottom: isWeb ? 8 : Math.max(insets.bottom, 8),
-          height: isWeb ? 76 : undefined,
+          left: 12,
+          right: 12,
+          bottom: isWeb ? 12 : Math.max(insets.bottom, 12),
+          paddingTop: 8,
+          paddingBottom: isWeb ? 10 : 10,
+          height: isWeb ? 74 : undefined,
+          borderRadius: 28,
+          overflow: 'hidden',
         },
-        tabBarBackground: () =>
-          isIOS ? (
-            <BlurView
-              intensity={100}
-              tint={isDark ? 'dark' : 'light'}
-              style={StyleSheet.absoluteFill}
-            />
-          ) : isWeb ? (
-            <View
-              style={[
-                StyleSheet.absoluteFill,
-                { backgroundColor: colors.card },
-              ]}
-            />
-          ) : null,
+        tabBarBackground: () => (
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: colors.bgElevated,
+              borderRadius: 28,
+              borderWidth: 1,
+              borderColor: colors.border,
+            }}
+          >
+            {isIOS ? (
+              <BlurView intensity={80} tint="dark" style={StyleSheet.absoluteFill} />
+            ) : null}
+          </View>
+        ),
       }}
     >
       <Tabs.Screen
@@ -106,10 +125,13 @@ function ClassicTabLayout() {
         options={{
           title: 'Home',
           tabBarIcon: ({ color, focused }) =>
-            isIOS ? (
-              <SymbolView name={focused ? (isTutor ? 'briefcase.fill' : 'house.fill') : (isTutor ? 'briefcase' : 'house')} tintColor={color} size={22} />
-            ) : (
-              <Ionicons name={focused ? (isTutor ? 'briefcase' : 'home') : (isTutor ? 'briefcase-outline' : 'home-outline')} size={21} color={color} />
+            renderTabIcon(
+              isIOS ? (
+                <SymbolView name={focused ? (isTutor ? 'briefcase.fill' : 'house.fill') : (isTutor ? 'briefcase' : 'house')} tintColor={color} size={22} />
+              ) : (
+                <Ionicons name={focused ? (isTutor ? 'briefcase' : 'home') : (isTutor ? 'briefcase-outline' : 'home-outline')} size={21} color={color} />
+              ),
+              focused,
             ),
         }}
       />
@@ -118,10 +140,13 @@ function ClassicTabLayout() {
         options={{
           title: isTutor ? 'Sessions' : 'My learning',
           tabBarIcon: ({ color, focused }) =>
-            isIOS ? (
-              <SymbolView name={focused ? 'calendar' : 'calendar'} tintColor={color} size={21} />
-            ) : (
-              <Ionicons name={focused ? 'calendar' : 'calendar-outline'} size={21} color={color} />
+            renderTabIcon(
+              isIOS ? (
+                <SymbolView name="calendar" tintColor={color} size={21} />
+              ) : (
+                <Ionicons name={focused ? 'calendar' : 'calendar-outline'} size={21} color={color} />
+              ),
+              focused,
             ),
         }}
       />
@@ -130,10 +155,13 @@ function ClassicTabLayout() {
         options={{
           title: isTutor ? 'Requests' : 'Find tutors',
           tabBarIcon: ({ color, focused }) =>
-            isIOS ? (
-              <SymbolView name={focused ? (isTutor ? 'flame.fill' : 'magnifyingglass') : (isTutor ? 'flame' : 'magnifyingglass')} tintColor={color} size={22} />
-            ) : (
-              <Ionicons name={focused ? (isTutor ? 'flame' : 'search') : (isTutor ? 'flame-outline' : 'search-outline')} size={21} color={color} />
+            renderTabIcon(
+              isIOS ? (
+                <SymbolView name={focused ? (isTutor ? 'flame.fill' : 'magnifyingglass') : (isTutor ? 'flame' : 'magnifyingglass')} tintColor={color} size={22} />
+              ) : (
+                <Ionicons name={focused ? (isTutor ? 'flame' : 'search') : (isTutor ? 'flame-outline' : 'search-outline')} size={21} color={color} />
+              ),
+              focused,
             ),
         }}
       />
@@ -142,10 +170,13 @@ function ClassicTabLayout() {
         options={{
           title: isTutor ? 'Tutor Hub' : 'Profile',
           tabBarIcon: ({ color, focused }) =>
-            isIOS ? (
-              <SymbolView name={focused ? 'person.crop.circle.fill' : 'person.crop.circle'} tintColor={color} size={22} />
-            ) : (
-              <Ionicons name={focused ? 'person' : 'person-outline'} size={21} color={color} />
+            renderTabIcon(
+              isIOS ? (
+                <SymbolView name={focused ? 'person.crop.circle.fill' : 'person.crop.circle'} tintColor={color} size={22} />
+              ) : (
+                <Ionicons name={focused ? 'person' : 'person-outline'} size={21} color={color} />
+              ),
+              focused,
             ),
         }}
       />

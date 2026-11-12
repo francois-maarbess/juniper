@@ -63,13 +63,13 @@ export default function GroupClassDetailScreen() {
   return (
     <Screen>
       <PageHeader title={cls.title} onBack={() => router.back()} />
-      <View style={[styles.hero, { backgroundColor: colors.primary }]}>
-        <Text style={[styles.heroSubject, { color: colors.primaryForeground }]}>{cls.subject}</Text>
-        <Text style={[styles.heroTitle, { color: colors.primaryForeground }]}>{cls.title}</Text>
-        <Text style={[styles.heroMeta, { color: colors.primaryForeground }]}>
+      <View style={[styles.hero, { backgroundColor: colors.card, borderColor: colors.border, borderWidth: 1 }]}>
+        <Text style={[styles.heroSubject, { color: colors.accent }]}>{cls.subject}</Text>
+        <Text style={[styles.heroTitle, { color: colors.foreground }]}>{cls.title}</Text>
+        <Text style={[styles.heroMeta, { color: colors.mutedForeground }]}>
           {cls.tutorName} · {new Date(cls.scheduledAt).toLocaleString()} · {cls.durationMinutes} min
         </Text>
-        <Text style={[styles.heroPrice, { color: colors.primaryForeground }]}>
+        <Text style={[styles.heroPrice, { color: colors.foreground }]}>
           ${(cls.pricePerStudentCents / 100).toFixed(2)} per student
         </Text>
       </View>

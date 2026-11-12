@@ -95,7 +95,7 @@ export default function RootLayout() {
             <KeyboardProvider>
           <AuthProvider>
             <JuniperProvider>
-              <StatusBar style="dark" />
+              <StatusBar style="light" />
               <RootLayoutNav />
             </JuniperProvider>
           </AuthProvider>
